@@ -14,41 +14,50 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0f172a, #1e3a8a, #3b82f6);
+            background: #060b19;
             color: #f8fafc;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            overflow-x: hidden;
         }
 
         .container {
             width: 100%;
-            max-width: 400px;
+            max-width: 380px;
             text-align: center;
+            position: relative;
+            z-index: 2;
         }
 
-        /* Kotak PIN */
+        /* CARD PIN */
         .card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             padding: 30px 20px;
             border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .flower-icon {
+            font-size: 32px;
+            margin-bottom: 5px;
         }
 
         h1 {
-            font-size: 24px;
-            margin-bottom: 8px;
+            font-size: 22px;
+            margin-bottom: 5px;
             color: #ffffff;
+            font-weight: 600;
         }
 
         p.subtitle {
-            font-size: 13px;
+            font-size: 12px;
             color: #93c5fd;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .pin-dots {
@@ -59,10 +68,10 @@
         }
 
         .dot {
-            width: 14px;
-            height: 14px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
             transition: 0.3s;
         }
 
@@ -71,20 +80,19 @@
             box-shadow: 0 0 10px #3b82f6;
         }
 
-        /* Keypad PIN */
         .keypad {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+            gap: 12px;
             padding: 0 10px;
         }
 
         .key {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             color: white;
-            font-size: 20px;
-            padding: 15px 0;
+            font-size: 18px;
+            padding: 14px 0;
             border-radius: 50%;
             cursor: pointer;
             transition: 0.2s;
@@ -93,71 +101,122 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto;
-            width: 60px;
+            width: 55px;
         }
 
         .key:active {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.25);
             transform: scale(0.95);
+        }
+
+        .hint {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-top: 20px;
         }
 
         .error-text {
             color: #f87171;
-            font-size: 12px;
-            margin-top: 15px;
+            font-size: 11px;
+            margin-top: 10px;
             display: none;
         }
 
-        /* Bagian Konten Utama (Tersembunyi Awalnya) */
+        /* COUNTDOWN SCREEN */
+        #countdown-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #060b19;
+            z-index: 10;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #countdown-number {
+            font-size: 120px;
+            font-weight: bold;
+            color: #f472b6;
+            text-shadow: 0 0 30px rgba(244, 114, 182, 0.6);
+            animation: pulseNum 1s infinite alternate;
+        }
+
+        @keyframes pulseNum {
+            from { transform: scale(1); opacity: 0.8; }
+            to { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* MAIN CONTENT */
         #main-content {
             display: none;
-            animation: fadeIn 0.8s ease forwards;
+            animation: fadeIn 1s ease forwards;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        .section-box {
-            background: rgba(255, 255, 255, 0.08);
+        .screen-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 20px;
+            padding: 25px 20px;
             border-radius: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .gift-box-icon {
+            font-size: 55px;
+            margin: 15px 0;
+            cursor: pointer;
+            animation: bounceGift 2s infinite;
+        }
+
+        @keyframes bounceGift {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .btn-tap {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(37, 99, 235,.4);
+            margin-top: 10px;
+        }
+
+        .letter-content {
             text-align: left;
-        }
-
-        .section-box h3 {
-            color: #93c5fd;
-            font-size: 16px;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .letter-text {
             font-size: 13px;
             line-height: 1.7;
-            color: #e2e8f0;
+            color: #cbd5e1;
         }
 
-        /* Foto Polaroid */
-        .polaroid {
+        .polaroid-frame {
             background: white;
             color: #1e293b;
-            padding: 12px 12px 18px 12px;
-            border-radius: 10px;
-            text-align: center;
+            padding: 10px 10px 15px 10px;
+            border-radius: 8px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             margin-top: 15px;
         }
 
         .polaroid-img {
             width: 100%;
-            height: 200px;
-            background: #cbd5e1;
-            border-radius: 6px;
+            height: 190px;
+            background: #e2e8f0;
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -171,52 +230,41 @@
             object-fit: cover;
         }
 
-        .polaroid p {
-            margin-top: 10px;
+        .polaroid-text {
             font-size: 12px;
+            margin-top: 10px;
             font-style: italic;
             color: #475569;
         }
 
-        .btn-action {
-            background: #2563eb;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 14px;
-            width: 100%;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+        /* Toples Pesan (Jar) */
+        .jar-box {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px dashed #3b82f6;
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 15px;
+        }
+
+        #jar-message {
             margin-top: 10px;
-            transition: 0.2s;
-        }
-
-        .btn-action:active {
-            transform: scale(0.97);
-        }
-
-        #hidden-gift-msg {
+            font-size: 12px;
+            color: #93c5fd;
             display: none;
-            margin-top: 12px;
-            background: rgba(30, 58, 138, 0.6);
-            padding: 12px;
-            border-radius: 10px;
-            font-size: 13px;
-            color: #bfdbfe;
-            border: 1px solid #3b82f6;
+            padding: 8px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        
-        <!-- BAGIAN 1: HALAMAN PIN KUNCI -->
-        <div id="pin-page" class="card">
-            <h1>For You, My Love 💙</h1>
-            <p class="subtitle">Enter our secret code (Hint: 24-10-08)</p>
+    <!-- 1. HALAMAN PIN -->
+    <div class="container" id="pin-container">
+        <div class="card">
+            <div class="flower-icon">🌸</div>
+            <h1>For You, My Love</h1>
+            <p class="subtitle">enter our secret code</p>
             
             <div class="pin-dots">
                 <div class="dot" id="d1"></div>
@@ -244,49 +292,66 @@
                 <button class="key" onclick="clearPin()">⌫</button>
             </div>
             
-            <div id="errorText" class="error-text">PIN salah! Coba masukkan: 24-10-08</div>
+            <div id="errorText" class="error-text">PIN salah! Gunakan: 24-10-08</div>
+            <div class="hint">Hint : our special date 🗓️</div>
         </div>
+    </div>
 
-        <!-- BAGIAN 2: KONTEN UTAMA SETELAH PIN BENAR -->
-        <div id="main-content">
+    <!-- 2. LAYAR HITUNG MUNDUR (3, 2, 1) -->
+    <div id="countdown-screen">
+        <div id="countdown-number">3</div>
+    </div>
+
+    <!-- 3. KONTEN UTAMA WEBSITE -->
+    <div class="container" id="main-content">
+        
+        <!-- Header Ucapan -->
+        <div class="screen-box">
+            <h1 style="color: #60a5fa; font-size: 20px;">✨ Happy Birthday ✨</h1>
+            <h2 style="font-size: 24px; margin: 5px 0; color: #f472b6;">Sayangku</h2>
+            <p style="font-size: 11px; color: #94a3b8;">26 JUNE 2004 — THE MOST SPECIAL DAY</p>
             
-            <!-- Surat / Pesan -->
-            <div class="section-box">
-                <h3>💌 A Letter For You</h3>
-                <div class="letter-text">
-                    "Selamat ulang tahun/hari spesial! Terima kasih sudah menjadi tempat pulang terbaik, orang yang selalu sabar, dan alasan di balik senyuman setiap hari. Semoga kita selalu bersama dalam keadaan apapun. I love you!"
-                </div>
-            </div>
-
-            <!-- Galeri Foto / Kenangan -->
-            <div class="section-box">
-                <h3>📸 Our Photo Memories</h3>
-                <div class="polaroid">
-                    <div class="polaroid-img">
-                        <!-- Ganti emoji dengan tag <img src="URL_FOTO_ANDA"> jika mau pakai foto asli -->
-                        🌊
-                    </div>
-                    <p>"Momen terindah yang pernah kita lewati bersama."</p>
-                </div>
-            </div>
-
-            <!-- Hadiah / Kejutan Interaktif -->
-            <div class="section-box" style="text-align: center;">
-                <h3>🎁 Your Special Gift</h3>
-                <button class="btn-action" onclick="bukaHadiah()">Tap to Open Gift ✨</button>
-                <div id="hidden-gift-msg">
-                    🎉 <b>Surprise!</b> "Semoga hari-harimu selalu dipenuhi kebahagiaan dan hal-hal baik. You are the most special person!"
-                </div>
-            </div>
-
+            <div class="gift-box-icon" onclick="bukaHadiah utama">🎁</div>
+            <p style="font-size: 11px; color: #cbd5e1;" id="gift-status">TAP THE GIFT ✨</p>
         </div>
 
+        <!-- Surat Cinta -->
+        <div class="screen-box">
+            <h3 style="color: #60a5fa; margin-bottom: 12px; font-size: 15px;">💌 A Letter For You</h3>
+            <div class="letter-content">
+                "Selamat ulang tahun! Terima kasih sudah menjadi tempat pulang terbaik, orang yang selalu sabar, dan alasan di balik senyuman setiap hari. Semoga harimu selalu dipenuhi kebahagiaan. I love you so much!"
+            </div>
+        </div>
+
+        <!-- Galeri Foto Kenangan -->
+        <div class="screen-box">
+            <h3 style="color: #60a5fa; margin-bottom: 5px; font-size: 15px;">📸 Our Photo Memories</h3>
+            <div class="polaroid-frame">
+                <div class="polaroid-img">
+                    <!-- Ganti emoji dengan tag <img src="URL_FOTO_ANDA"> jika mau pakai foto asli -->
+                    🌅
+                </div>
+                <div class="polaroid-text">"Momen indah yang takkan pernah terlupakan."</div>
+            </div>
+        </div>
+
+        <!-- Toples Pesan Harapan (Jar) -->
+        <div class="screen-box">
+            <h3 style="color: #60a5fa; margin-bottom: 8px; font-size: 15px;">✨ Reasons I'm Grateful</h3>
+            <p style="font-size: 11px; color: #94a3b8;">Shake the jar and pick a note 🫙</p>
+            <button class="btn-tap" onclick="bukaCatatanJar()">Shake the Jar</button>
+            <div id="jar-message">
+                "Alasan utamaku bersyukur setiap hari adalah karena aku bisa mengenal dan mencintaimu."
+            </div>
+        </div>
+
+        <p style="font-size: 10px; color: #64748b; margin-top: 20px;">With love that never runs out 🤍</p>
     </div>
 
     <!-- SCRIPT JAVASCRIPT -->
     <script>
         let enteredPin = "";
-        const correctPin = "24-10-08"; // PIN yang diatur sesuai permintaan
+        const correctPin = "24-10-08"; // PIN yang diminta
 
         function pressKey(num) {
             if (enteredPin.length < 8) {
@@ -318,11 +383,29 @@
 
         function checkPin() {
             if (enteredPin === correctPin) {
-                // Transisi mulus ke halaman utama
-                document.getElementById("pin-page").style.display = "none";
-                document.getElementById("main-content").style.display = "block";
+                // Sembunyikan kotak PIN
+                document.getElementById("pin-container").style.display = "none";
+                
+                // Tampilkan layar hitung mundur (3, 2, 1)
+                const cdScreen = document.getElementById("countdown-screen");
+                const cdNum = document.getElementById("countdown-number");
+                cdScreen.style.display = "flex";
+
+                let count = 3;
+                cdNum.innerText = count;
+
+                let timer = setInterval(() => {
+                    count--;
+                    if (count > 0) {
+                        cdNum.innerText = count;
+                    } else {
+                        clearInterval(timer);
+                        cdScreen.style.display = "none";
+                        document.getElementById("main-content").style.display = "block";
+                    }
+                }, 1000);
+
             } else {
-                // Jika salah
                 document.getElementById("errorText").style.display = "block";
                 setTimeout(() => {
                     clearPin();
@@ -330,15 +413,21 @@
             }
         }
 
-        function bukaHadiah() {
-            const giftMsg = document.getElementById("hidden-gift-msg");
-            if (giftMsg.style.display === "block") {
-                giftMsg.style.display = "none";
+        function bukaHadiahutama() {
+            const status = document.getElementById("gift-status");
+            status.innerHTML = "🎉 <b>Opened!</b> You are the most special person in my life!";
+            status.style.color = "#f472b6";
+        }
+
+        function bukaCatatanJar() {
+            const msg = document.getElementById("jar-message");
+            if (msg.style.display === "block") {
+                msg.style.display = "none";
             } else {
-                giftMsg.style.display = "block";
+                msg.style.display = "block";
             }
         }
     </script>
 
 </body>
-</html>
+    </html>
