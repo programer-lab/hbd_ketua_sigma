@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You, My Love 💙</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e3a8a, #3b82f6);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        /* Kotak PIN */
+        .card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 30px 20px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        p.subtitle {
+            font-size: 13px;
+            color: #93c5fd;
+            margin-bottom: 25px;
+        }
+
+        .pin-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: 0.3s;
+        }
+
+        .dot.active {
+            background: #60a5fa;
+            box-shadow: 0 0 10px #3b82f6;
+        }
+
+        /* Keypad PIN */
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 0 10px;
+        }
+
+        .key {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            font-size: 20px;
+            padding: 15px 0;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.2s;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            width: 60px;
+        }
+
+        .key:active {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0.95);
+        }
+
+        .error-text {
+            color: #f87171;
+            font-size: 12px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        /* Bagian Konten Utama (Tersembunyi Awalnya) */
+        #main-content {
+            display: none;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-box {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .section-box h3 {
+            color: #93c5fd;
+            font-size: 16px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .letter-text {
+            font-size: 13px;
+            line-height: 1.7;
+            color: #e2e8f0;
+        }
+
+        /* Foto Polaroid */
+        .polaroid {
+            background: white;
+            color: #1e293b;
+            padding: 12px 12px 18px 12px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            margin-top: 15px;
+        }
+
+        .polaroid-img {
+            width: 100%;
+            height: 200px;
+            background: #cbd5e1;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            overflow: hidden;
+        }
+
+        .polaroid-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .polaroid p {
+            margin-top: 10px;
+            font-size: 12px;
+            font-style: italic;
+            color: #475569;
+        }
+
+        .btn-action {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 14px;
+            width: 100%;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+            margin-top: 10px;
+            transition: 0.2s;
+        }
+
+        .btn-action:active {
+            transform: scale(0.97);
+        }
+
+        #hidden-gift-msg {
+            display: none;
+            margin-top: 12px;
+            background: rgba(30, 58, 138, 0.6);
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            color: #bfdbfe;
+            border: 1px solid #3b82f6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- BAGIAN 1: HALAMAN PIN KUNCI -->
+        <div id="pin-page" class="card">
+            <h1>For You, My Love 💙</h1>
+            <p class="subtitle">Enter our secret code (Hint: 24-10-08)</p>
+            
+            <div class="pin-dots">
+                <div class="dot" id="d1"></div>
+                <div class="dot" id="d2"></div>
+                <div class="dot" id="d3"></div>
+                <div class="dot" id="d4"></div>
+                <div class="dot" id="d5"></div>
+                <div class="dot" id="d6"></div>
+                <div class="dot" id="d7"></div>
+                <div class="dot" id="d8"></div>
+            </div>
+
+            <div class="keypad">
+                <button class="key" onclick="pressKey('1')">1</button>
+                <button class="key" onclick="pressKey('2')">2</button>
+                <button class="key" onclick="pressKey('3')">3</button>
+                <button class="key" onclick="pressKey('4')">4</button>
+                <button class="key" onclick="pressKey('5')">5</button>
+                <button class="key" onclick="pressKey('6')">6</button>
+                <button class="key" onclick="pressKey('7')">7</button>
+                <button class="key" onclick="pressKey('8')">8</button>
+                <button class="key" onclick="pressKey('9')">9</button>
+                <button class="key" onclick="pressKey('-')">-</button>
+                <button class="key" onclick="pressKey('0')">0</button>
+                <button class="key" onclick="clearPin()">⌫</button>
+            </div>
+            
+            <div id="errorText" class="error-text">PIN salah! Coba masukkan: 24-10-08</div>
+        </div>
+
+        <!-- BAGIAN 2: KONTEN UTAMA SETELAH PIN BENAR -->
+        <div id="main-content">
+            
+            <!-- Surat / Pesan -->
+            <div class="section-box">
+                <h3>💌 A Letter For You</h3>
+                <div class="letter-text">
+                    "Selamat ulang tahun/hari spesial! Terima kasih sudah menjadi tempat pulang terbaik, orang yang selalu sabar, dan alasan di balik senyuman setiap hari. Semoga kita selalu bersama dalam keadaan apapun. I love you!"
+                </div>
+            </div>
+
+            <!-- Galeri Foto / Kenangan -->
+            <div class="section-box">
+                <h3>📸 Our Photo Memories</h3>
+                <div class="polaroid">
+                    <div class="polaroid-img">
+                        <!-- Ganti emoji dengan tag <img src="URL_FOTO_ANDA"> jika mau pakai foto asli -->
+                        🌊
+                    </div>
+                    <p>"Momen terindah yang pernah kita lewati bersama."</p>
+                </div>
+            </div>
+
+            <!-- Hadiah / Kejutan Interaktif -->
+            <div class="section-box" style="text-align: center;">
+                <h3>🎁 Your Special Gift</h3>
+                <button class="btn-action" onclick="bukaHadiah()">Tap to Open Gift ✨</button>
+                <div id="hidden-gift-msg">
+                    🎉 <b>Surprise!</b> "Semoga hari-harimu selalu dipenuhi kebahagiaan dan hal-hal baik. You are the most special person!"
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- SCRIPT JAVASCRIPT -->
+    <script>
+        let enteredPin = "";
+        const correctPin = "24-10-08"; // PIN yang diatur sesuai permintaan
+
+        function pressKey(num) {
+            if (enteredPin.length < 8) {
+                enteredPin += num;
+                updateDots();
+                
+                if (enteredPin.length === 8) {
+                    checkPin();
+                }
+            }
+        }
+
+        function clearPin() {
+            enteredPin = "";
+            updateDots();
+            document.getElementById("errorText").style.display = "none";
+        }
+
+        function updateDots() {
+            for (let i = 1; i <= 8; i++) {
+                const dot = document.getElementById("d" + i);
+                if (i <= enteredPin.length) {
+                    dot.classList.add("active");
+                } else {
+                    dot.classList.remove("active");
+                }
+            }
+        }
+
+        function checkPin() {
+            if (enteredPin === correctPin) {
+                // Transisi mulus ke halaman utama
+                document.getElementById("pin-page").style.display = "none";
+                document.getElementById("main-content").style.display = "block";
+            } else {
+                // Jika salah
+                document.getElementById("errorText").style.display = "block";
+                setTimeout(() => {
+                    clearPin();
+                }, 1000);
+            }
+        }
+
+        function bukaHadiah() {
+            const giftMsg = document.getElementById("hidden-gift-msg");
+            if (giftMsg.style.display === "block") {
+                giftMsg.style.display = "none";
+            } else {
+                giftMsg.style.display = "block";
+            }
+        }
+    </script>
+
+</body>
+</html>
