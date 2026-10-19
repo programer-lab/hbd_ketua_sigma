@@ -1,433 +1,513 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For You, My Love 💙</title>
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dottore Birthday Gift - GameBoy Edition</title>
+  <style>
+    :root {
+      --bg-color: #0b132b;
+      --gameboy-body: #1c2541;
+      --gameboy-border: #3a506b;
+      --accent-cyan: #00f5d4;
+      --accent-blue: #00b4d8;
+      --dark-blue: #03045e;
+      --screen-bg: #e0f7fa;
+      --screen-text: #0d1b2a;
+      --pink-neon: #7209b7;
+    }
 
-        body {
-            background: #060b19;
-            color: #f8fafc;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            overflow-x: hidden;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Courier New', Courier, monospace;
+    }
 
-        .container {
-            width: 100%;
-            max-width: 380px;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
+    body {
+      background-color: var(--bg-color);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 10px;
+    }
 
-        /* CARD PIN */
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            padding: 30px 20px;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-        }
+    /* Gameboy Frame Container */
+    .gameboy-container {
+      background: var(--gameboy-body);
+      border: 4px solid var(--gameboy-border);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 380px;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(0, 245, 212, 0.3);
+      position: relative;
+    }
 
-        .flower-icon {
-            font-size: 32px;
-            margin-bottom: 5px;
-        }
+    .top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 12px;
+      font-weight: bold;
+      color: var(--accent-cyan);
+    }
 
-        h1 {
-            font-size: 22px;
-            margin-bottom: 5px;
-            color: #ffffff;
-            font-weight: 600;
-        }
+    .power-led {
+      width: 10px;
+      height: 10px;
+      background-color: #00ff66;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #00ff66;
+      display: inline-block;
+      margin-right: 5px;
+    }
 
-        p.subtitle {
-            font-size: 12px;
-            color: #93c5fd;
-            margin-bottom: 20px;
-        }
+    /* Screen Area */
+    .screen {
+      background-color: var(--screen-bg);
+      color: var(--screen-text);
+      border: 3px solid var(--dark-blue);
+      border-radius: 10px;
+      min-height: 380px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
 
-        .pin-dots {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
+    /* View Sections */
+    .view-section {
+      display: none;
+      width: 100%;
+      height: 100%;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
 
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            transition: 0.3s;
-        }
+    .view-section.active {
+      display: flex;
+    }
 
-        .dot.active {
-            background: #60a5fa;
-            box-shadow: 0 0 10px #3b82f6;
-        }
+    /* Progress Bar */
+    .progress-box {
+      width: 80%;
+      background: #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 15px 0;
+      border: 2px solid var(--dark-blue);
+    }
 
-        .keypad {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            padding: 0 10px;
-        }
+    .progress-bar {
+      height: 15px;
+      width: 0%;
+      background: var(--accent-blue);
+      transition: width 0.3s;
+    }
 
-        .key {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            color: white;
-            font-size: 18px;
-            padding: 14px 0;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: 0.2s;
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            width: 55px;
-        }
+    /* Menu Buttons in Gameboy */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      width: 100%;
+      margin-top: 15px;
+    }
 
-        .key:active {
-            background: rgba(255, 255, 255, 0.25);
-            transform: scale(0.95);
-        }
+    .btn-menu {
+      background: var(--accent-blue);
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px #0077b6;
+      transition: all 0.1s;
+    }
 
-        .hint {
-            font-size: 11px;
-            color: #94a3b8;
-            margin-top: 20px;
-        }
+    .btn-menu:active {
+      box-shadow: 0 0 #0077b6;
+      transform: translateY(4px);
+    }
 
-        .error-text {
-            color: #f87171;
-            font-size: 11px;
-            margin-top: 10px;
-            display: none;
-        }
+    /* Controls Area */
+    .controls {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        /* COUNTDOWN SCREEN */
-        #countdown-screen {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #060b19;
-            z-index: 10;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
+    .d-pad {
+      width: 80px;
+      height: 80px;
+      position: relative;
+      background: var(--dark-blue);
+      border-radius: 10px;
+    }
 
-        #countdown-number {
-            font-size: 120px;
-            font-weight: bold;
-            color: #f472b6;
-            text-shadow: 0 0 30px rgba(244, 114, 182, 0.6);
-            animation: pulseNum 1s infinite alternate;
-        }
+    .d-btn {
+      position: absolute;
+      background: #00b4d8;
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-        @keyframes pulseNum {
-            from { transform: scale(1); opacity: 0.8; }
-            to { transform: scale(1.1); opacity: 1; }
-        }
+    .d-up { top: 0; left: 28px; width: 24px; height: 28px; }
+    .d-down { bottom: 0; left: 28px; width: 24px; height: 28px; }
+    .d-left { top: 28px; left: 0; width: 28px; height: 24px; }
+    .d-right { top: 28px; right: 0; width: 28px; height: 24px; }
 
-        /* MAIN CONTENT */
-        #main-content {
-            display: none;
-            animation: fadeIn 1s ease forwards;
-        }
+    .ab-buttons {
+      display: flex;
+      gap: 10px;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+    .btn-round {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: #e63946;
+      color: white;
+      border: none;
+      font-weight: bold;
+      box-shadow: 0 3px #9bf6ff;
+      cursor: pointer;
+    }
 
-        .screen-box {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            padding: 25px 20px;
-            border-radius: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+    .nav-bottom {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 10px;
+    }
 
-        .gift-box-icon {
-            font-size: 55px;
-            margin: 15px 0;
-            cursor: pointer;
-            animation: bounceGift 2s infinite;
-        }
+    .btn-nav {
+      background: var(--dark-blue);
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      font-size: 11px;
+      cursor: pointer;
+    }
 
-        @keyframes bounceGift {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
+    /* Tetris Canvas */
+    #tetrisCanvas {
+      background: #000;
+      border: 2px solid var(--dark-blue);
+    }
 
-        .btn-tap {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(37, 99, 235,.4);
-            margin-top: 10px;
-        }
+    /* Photobox Gallery Styling */
+    .photo-frame {
+      width: 100%;
+      max-height: 200px;
+      overflow-y: auto;
+      background: white;
+      border: 2px dashed var(--accent-blue);
+      padding: 8px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
 
-        .letter-content {
-            text-align: left;
-            font-size: 13px;
-            line-height: 1.7;
-            color: #cbd5e1;
-        }
+    .photo-item {
+      background: #f0f8ff;
+      padding: 5px;
+      margin-bottom: 8px;
+      border-radius: 5px;
+      border: 1px solid #bde0fe;
+    }
 
-        .polaroid-frame {
-            background: white;
-            color: #1e293b;
-            padding: 10px 10px 15px 10px;
-            border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            margin-top: 15px;
-        }
+    .photo-item img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
 
-        .polaroid-img {
-            width: 100%;
-            height: 190px;
-            background: #e2e8f0;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            overflow: hidden;
-        }
+    /* Popup Modal */
+    .modal {
+      display: none;
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
 
-        .polaroid-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    .modal-content {
+      background: white;
+      color: black;
+      padding: 15px;
+      border-radius: 10px;
+      max-width: 80%;
+      text-align: center;
+    }
 
-        .polaroid-text {
-            font-size: 12px;
-            margin-top: 10px;
-            font-style: italic;
-            color: #475569;
-        }
-
-        /* Toples Pesan (Jar) */
-        .jar-box {
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px dashed #3b82f6;
-            padding: 15px;
-            border-radius: 15px;
-            margin-top: 15px;
-        }
-
-        #jar-message {
-            margin-top: 10px;
-            font-size: 12px;
-            color: #93c5fd;
-            display: none;
-            padding: 8px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 8px;
-        }
-    </style>
+    .modal-btn {
+      background: var(--accent-blue);
+      color: white;
+      border: none;
+      padding: 5px 15px;
+      margin-top: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- 1. HALAMAN PIN -->
-    <div class="container" id="pin-container">
-        <div class="card">
-            <div class="flower-icon">🌸</div>
-            <h1>For You, My Love</h1>
-            <p class="subtitle">enter our secret code</p>
-            
-            <div class="pin-dots">
-                <div class="dot" id="d1"></div>
-                <div class="dot" id="d2"></div>
-                <div class="dot" id="d3"></div>
-                <div class="dot" id="d4"></div>
-                <div class="dot" id="d5"></div>
-                <div class="dot" id="d6"></div>
-                <div class="dot" id="d7"></div>
-                <div class="dot" id="d8"></div>
-            </div>
-
-            <div class="keypad">
-                <button class="key" onclick="pressKey('1')">1</button>
-                <button class="key" onclick="pressKey('2')">2</button>
-                <button class="key" onclick="pressKey('3')">3</button>
-                <button class="key" onclick="pressKey('4')">4</button>
-                <button class="key" onclick="pressKey('5')">5</button>
-                <button class="key" onclick="pressKey('6')">6</button>
-                <button class="key" onclick="pressKey('7')">7</button>
-                <button class="key" onclick="pressKey('8')">8</button>
-                <button class="key" onclick="pressKey('9')">9</button>
-                <button class="key" onclick="pressKey('-')">-</button>
-                <button class="key" onclick="pressKey('0')">0</button>
-                <button class="key" onclick="clearPin()">⌫</button>
-            </div>
-            
-            <div id="errorText" class="error-text">PIN salah! Gunakan: 24-10-08</div>
-            <div class="hint">Hint : our special date 🗓️</div>
-        </div>
+  <div class="gameboy-container">
+    <div class="top-header">
+      <div><span class="power-led"></span>POWER</div>
+      <div>GAME-BOY [DOTTORE VER]</div>
     </div>
 
-    <!-- 2. LAYAR HITUNG MUNDUR (3, 2, 1) -->
-    <div id="countdown-screen">
-        <div id="countdown-number">3</div>
+    <!-- SCREEN AREA -->
+    <div class="screen">
+
+      <!-- 1. LOADING VIEW -->
+      <div id="loadingView" class="view-section active">
+        <h3>BIRTHDAY GIFT</h3>
+        <p style="font-size: 12px; color: var(--dark-blue); margin-top: 10px;">> PREPARING EXPERIMENT...</p>
+        <div class="progress-box">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+        <p id="progressText" style="font-size: 12px;">0%</p>
+      </div>
+
+      <!-- 2. HOME MENU VIEW -->
+      <div id="homeView" class="view-section">
+        <h2 style="color: var(--dark-blue);">Happy Birthday!</h2>
+        <p style="font-size: 12px; margin-bottom: 10px;">The Doctor's Special Gift</p>
+        <img src="https://via.placeholder.com/120x80/00b4d8/ffffff?text=Dottore+Theme" alt="Dottore" style="border-radius: 8px; margin-bottom: 10px;">
+        <p style="font-size: 10px;">Press Start Button</p>
+
+        <div class="menu-grid">
+          <button class="btn-menu" onclick="switchView('messageView')">MESSAGE</button>
+          <button class="btn-menu" onclick="switchView('galleryView')">GALLERY</button>
+          <button class="btn-menu" onclick="switchView('musicView')">MUSIC</button>
+          <button class="btn-menu" onclick="switchView('tetrisView')">TETRIS</button>
+        </div>
+      </div>
+
+      <!-- 3. MESSAGE VIEW -->
+      <div id="messageView" class="view-section">
+        <h4 style="margin-bottom: 8px;">Message</h4>
+        <div style="background: #fff; padding: 10px; border-radius: 8px; font-size: 11px; text-align: left; height: 200px; overflow-y: auto; border: 1px solid var(--accent-blue);">
+          <p id="messageContent">Hi Friend,<br><br>Selamat ulang tahun! Semoga di usia yang baru ini semua eksperimen kehidupanmu berjalan sukses. Dottore selalu mengawasimu dari Illytchevsk! Tetap semangat dan bahagia selalu!</p>
+        </div>
+      </div>
+
+      <!-- 4. GALLERY / PHOTOBOX VIEW -->
+      <div id="galleryView" class="view-section">
+        <h4>Photobox Session</h4>
+        <p style="font-size: 10px; margin-bottom: 5px;" id="photoStatus">READY TO PRINT</p>
+        <div class="photo-frame" id="photoFrame">
+          <!-- Item foto akan tercetak di sini -->
+        </div>
+        <button class="btn-menu" style="font-size: 11px; padding: 5px;" onclick="startPhotobox()">MULAI CETAK</button>
+      </div>
+
+      <!-- 5. MUSIC PLAYER VIEW -->
+      <div id="musicView" class="view-section">
+        <h4>Dottore Music Box</h4>
+        <div style="background: white; width: 100%; border-radius: 8px; padding: 10px; margin-top: 10px;">
+          <p style="font-size: 11px; font-weight: bold;" id="songTitle">🎵 Segment Theme - Zandik</p>
+          <div style="margin: 10px 0;">
+            <button class="btn-menu" style="padding: 4px 8px;" onclick="changeTrack(1)">Playlist 1</button>
+            <button class="btn-menu" style="padding: 4px 8px;" onclick="changeTrack(2)">Playlist 2</button>
+          </div>
+          <p style="font-size: 9px; color: #555;" id="songDesc">Lagu spesial tema ulang tahun Dottore.</p>
+        </div>
+      </div>
+
+      <!-- 6. TETRIS VIEW -->
+      <div id="tetrisView" class="view-section">
+        <canvas id="tetrisCanvas" width="160" height="200"></canvas>
+      </div>
+
+      <!-- MODAL GAME OVER / POPUP -->
+      <div id="customModal" class="modal">
+        <div class="modal-content">
+          <h3 id="modalTitle">GAME OVER</h3>
+          <p id="modalMsg" style="font-size: 11px; margin: 10px 0;">Walaupun kamu kalah, kamu tetap pemenang di hatiku! I LOVE YOU &lt;3</p>
+          <button class="modal-btn" onclick="closeModal()">OK</button>
+        </div>
+      </div>
+
     </div>
 
-    <!-- 3. KONTEN UTAMA WEBSITE -->
-    <div class="container" id="main-content">
-        
-        <!-- Header Ucapan -->
-        <div class="screen-box">
-            <h1 style="color: #60a5fa; font-size: 20px;">✨ Happy Birthday ✨</h1>
-            <h2 style="font-size: 24px; margin: 5px 0; color: #f472b6;">Sayangku</h2>
-            <p style="font-size: 11px; color: #94a3b8;">26 JUNE 2004 — THE MOST SPECIAL DAY</p>
-            
-            <div class="gift-box-icon" onclick="bukaHadiah utama">🎁</div>
-            <p style="font-size: 11px; color: #cbd5e1;" id="gift-status">TAP THE GIFT ✨</p>
-        </div>
-
-        <!-- Surat Cinta -->
-        <div class="screen-box">
-            <h3 style="color: #60a5fa; margin-bottom: 12px; font-size: 15px;">💌 A Letter For You</h3>
-            <div class="letter-content">
-                "Selamat ulang tahun! Terima kasih sudah menjadi tempat pulang terbaik, orang yang selalu sabar, dan alasan di balik senyuman setiap hari. Semoga harimu selalu dipenuhi kebahagiaan. I love you so much!"
-            </div>
-        </div>
-
-        <!-- Galeri Foto Kenangan -->
-        <div class="screen-box">
-            <h3 style="color: #60a5fa; margin-bottom: 5px; font-size: 15px;">📸 Our Photo Memories</h3>
-            <div class="polaroid-frame">
-                <div class="polaroid-img">
-                    <!-- Ganti emoji dengan tag <img src="URL_FOTO_ANDA"> jika mau pakai foto asli -->
-                    🌅
-                </div>
-                <div class="polaroid-text">"Momen indah yang takkan pernah terlupakan."</div>
-            </div>
-        </div>
-
-        <!-- Toples Pesan Harapan (Jar) -->
-        <div class="screen-box">
-            <h3 style="color: #60a5fa; margin-bottom: 8px; font-size: 15px;">✨ Reasons I'm Grateful</h3>
-            <p style="font-size: 11px; color: #94a3b8;">Shake the jar and pick a note 🫙</p>
-            <button class="btn-tap" onclick="bukaCatatanJar()">Shake the Jar</button>
-            <div id="jar-message">
-                "Alasan utamaku bersyukur setiap hari adalah karena aku bisa mengenal dan mencintaimu."
-            </div>
-        </div>
-
-        <p style="font-size: 10px; color: #64748b; margin-top: 20px;">With love that never runs out 🤍</p>
+    <!-- CONTROLS & NAV BOTTOM -->
+    <div class="controls">
+      <div class="d-pad">
+        <button class="d-btn d-up" onclick="moveTetris('up')">▲</button>
+        <button class="d-btn d-down" onclick="moveTetris('down')">▼</button>
+        <button class="d-btn d-left" onclick="moveTetris('left')">◄</button>
+        <button class="d-btn d-right" onclick="moveTetris('right')">►</button>
+      </div>
+      <div class="ab-buttons">
+        <button class="btn-round" onclick="btnAction('B')">B</button>
+        <button class="btn-round" onclick="btnAction('A')">A</button>
+      </div>
     </div>
 
-    <!-- SCRIPT JAVASCRIPT -->
-    <script>
-        let enteredPin = "";
-        const correctPin = "24-10-08"; // PIN yang diminta
+    <div class="nav-bottom">
+      <button class="btn-nav" onclick="switchView('homeView')">KEMBALI</button>
+      <button class="btn-nav" onclick="switchView('homeView')">START</button>
+    </div>
+  </div>
 
-        function pressKey(num) {
-            if (enteredPin.length < 8) {
-                enteredPin += num;
-                updateDots();
-                
-                if (enteredPin.length === 8) {
-                    checkPin();
-                }
-            }
-        }
+  <script>
+    // --- LOADING ANIMATION ---
+    let progress = 0;
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
 
-        function clearPin() {
-            enteredPin = "";
-            updateDots();
-            document.getElementById("errorText").style.display = "none";
-        }
+    const loadingInterval = setInterval(() => {
+      progress += 5;
+      progressBar.style.width = progress + '%';
+      progressText.innerText = progress + '%';
+      if (progress >= 100) {
+        clearInterval(loadingInterval);
+        setTimeout(() => {
+          switchView('homeView');
+        }, 500);
+      }
+    }, 100);
 
-        function updateDots() {
-            for (let i = 1; i <= 8; i++) {
-                const dot = document.getElementById("d" + i);
-                if (i <= enteredPin.length) {
-                    dot.classList.add("active");
-                } else {
-                    dot.classList.remove("active");
-                }
-            }
-        }
+    // --- VIEW SWITCHER ---
+    function switchView(viewId) {
+      document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+      document.getElementById(viewId).classList.add('active');
 
-        function checkPin() {
-            if (enteredPin === correctPin) {
-                // Sembunyikan kotak PIN
-                document.getElementById("pin-container").style.display = "none";
-                
-                // Tampilkan layar hitung mundur (3, 2, 1)
-                const cdScreen = document.getElementById("countdown-screen");
-                const cdNum = document.getElementById("countdown-number");
-                cdScreen.style.display = "flex";
+      if (viewId === 'tetrisView') {
+        startTetris();
+      } else {
+        stopTetris();
+      }
+    }
 
-                let count = 3;
-                cdNum.innerText = count;
+    // --- PHOTOBOX SIMULATION ---
+    const photos = [
+      { text: "My Best Friend 💙", img: "https://via.placeholder.com/150/00b4d8/ffffff?text=Photo+1" },
+      { text: "Dottore Segment 🤖", img: "https://via.placeholder.com/150/0077b6/ffffff?text=Photo+2" },
+      { text: "Happy Birthday! 🎉", img: "https://via.placeholder.com/150/03045e/ffffff?text=Photo+3" }
+    ];
 
-                let timer = setInterval(() => {
-                    count--;
-                    if (count > 0) {
-                        cdNum.innerText = count;
-                    } else {
-                        clearInterval(timer);
-                        cdScreen.style.display = "none";
-                        document.getElementById("main-content").style.display = "block";
-                    }
-                }, 1000);
+    function startPhotobox() {
+      const frame = document.getElementById('photoFrame');
+      const status = document.getElementById('photoStatus');
+      frame.innerHTML = '';
+      status.innerText = 'PRINTING...';
 
-            } else {
-                document.getElementById("errorText").style.display = "block";
-                setTimeout(() => {
-                    clearPin();
-                }, 1000);
-            }
-        }
+      photos.forEach((p, index) => {
+        setTimeout(() => {
+          const item = document.createElement('div');
+          item.className = 'photo-item';
+          item.innerHTML = `<img src="${p.img}"><p style="font-size:10px; margin-top:2px;">${p.text}</p>`;
+          frame.appendChild(item);
+          frame.scrollTop = frame.scrollHeight;
 
-        function bukaHadiahutama() {
-            const status = document.getElementById("gift-status");
-            status.innerHTML = "🎉 <b>Opened!</b> You are the most special person in my life!";
-            status.style.color = "#f472b6";
-        }
+          if (index === photos.length - 1) {
+            status.innerText = 'PHOTO STRIP COMPLETED!';
+          }
+        }, (index + 1) * 1200);
+      });
+    }
 
-        function bukaCatatanJar() {
-            const msg = document.getElementById("jar-message");
-            if (msg.style.display === "block") {
-                msg.style.display = "none";
-            } else {
-                msg.style.display = "block";
-            }
-        }
-    </script>
+    // --- MUSIC PLAYER ---
+    function changeTrack(trackNum) {
+      const title = document.getElementById('songTitle');
+      const desc = document.getElementById('songDesc');
+      if (trackNum === 1) {
+        title.innerText = "🎵 Segment Theme - Zandik";
+        desc.innerText = "Lagu spesial tema ulang tahun Dottore.";
+      } else {
+        title.innerText = "🎵 Winter Night's Lazzo - Fatui";
+        desc.innerText = "Koleksi musik favorit bertema Genshin Impact.";
+      }
+    }
 
+    // --- MINI TETRIS GAME ---
+    const canvas = document.getElementById('tetrisCanvas');
+    const ctx = canvas.getContext('2d');
+    let tetrisInterval = null;
+
+    const grid = 16;
+    let piece = { x: 64, y: 0, shape: [[1,1,1],[0,1,0]] };
+
+    function drawTetris() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#00f5d4';
+      
+      piece.shape.forEach((row, rIdx) => {
+        row.forEach((val, cIdx) => {
+          if (val) {
+            ctx.fillRect(piece.x + cIdx * grid, piece.y + rIdx * grid, grid - 1, grid - 1);
+          }
+        });
+      });
+
+      piece.y += 2;
+      if (piece.y > canvas.height - 32) {
+        stopTetris();
+        showModal("INGET YA!", "Walaupun kamu kalah, kamu tetap selalu menang di hati aku! I LOVE YOU <3");
+      }
+    }
+
+    function startTetris() {
+      piece.y = 0;
+      if (!tetrisInterval) {
+        tetrisInterval = setInterval(drawTetris, 100);
+      }
+    }
+
+    function stopTetris() {
+      if (tetrisInterval) {
+        clearInterval(tetrisInterval);
+        tetrisInterval = null;
+      }
+    }
+
+    function moveTetris(dir) {
+      if (dir === 'left') piece.x -= grid;
+      if (dir === 'right') piece.x += grid;
+      if (dir === 'down') piece.y += grid;
+    }
+
+    // --- MODAL FUNCTIONS ---
+    function showModal(title, msg) {
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalMsg').innerText = msg;
+      document.getElementById('customModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('customModal').style.display = 'none';
+      switchView('homeView');
+    }
+
+    function btnAction(btn) {
+      if (btn === 'A') {
+        showModal("BUTTON A", "Fitur eksperimen disetujui oleh Dottore!");
+      } else {
+        switchView('homeView');
+      }
+    }
+  </script>
 </body>
-    </html>
+    </html
