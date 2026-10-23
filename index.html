@@ -79,36 +79,40 @@
     .quote {
       font-size: 13px;
       color: #b0a8ba;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
 
-    /* Music Player Pill */
+    /* Music Control Bar */
     .music-control {
       position: fixed;
       top: 20px;
       right: 20px;
       z-index: 10;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 30px;
-      padding: 8px 16px;
+      padding: 8px 18px;
       display: flex;
       align-items: center;
       gap: 10px;
       font-size: 12px;
       color: #f3a6b8;
       cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .music-control:hover {
+      background: rgba(255, 255, 255, 0.25);
     }
 
     .music-icon {
       font-size: 16px;
-      animation: spin 4s linear infinite;
-      animation-play-state: paused;
+      display: inline-block;
     }
 
     .music-control.playing .music-icon {
-      animation-play-state: running;
+      animation: spin 3s linear infinite;
     }
 
     @keyframes spin {
@@ -120,13 +124,14 @@
       display: flex;
       justify-content: center;
       gap: 15px;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
     }
 
     .time-card {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 12px;
       padding: 15px;
       min-width: 85px;
@@ -135,7 +140,7 @@
 
     .time-number {
       font-family: 'Cinzel', serif;
-      font-size: 32px;
+      font-size: 36px;
       font-weight: 700;
       color: #fff;
     }
@@ -159,39 +164,42 @@
       background: linear-gradient(135deg, #d4af37, #aa820a);
       color: #fff;
       border: none;
-      padding: 12px 30px;
+      padding: 14px 32px;
       border-radius: 25px;
-      font-size: 12px;
+      font-size: 13px;
+      font-weight: 600;
       letter-spacing: 2px;
       text-transform: uppercase;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
     }
 
     .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
     }
 
     /* Gift Section */
     .gift-box {
-      font-size: 80px;
+      font-size: 90px;
       margin: 30px 0;
       cursor: pointer;
-      animation: pulse 2s infinite;
+      display: inline-block;
+      animation: pulse 1.8s infinite;
+      user-select: none;
     }
 
     @keyframes pulse {
       0% { transform: scale(1); }
-      50% { transform: scale(1.08); }
+      50% { transform: scale(1.1); }
       100% { transform: scale(1); }
     }
 
     /* Photos Grid */
     .photo-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 15px;
       margin: 30px 0;
     }
@@ -206,7 +214,7 @@
     }
 
     .polaroid:hover {
-      transform: scale(1.05) rotate(0deg);
+      transform: scale(1.08) rotate(0deg);
       z-index: 5;
     }
 
@@ -219,9 +227,9 @@
 
     /* Letter Box */
     .letter-card {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       padding: 30px;
       border-radius: 15px;
       text-align: left;
@@ -238,15 +246,15 @@
 
   <canvas id="particles-canvas"></canvas>
 
-  <!-- Audio Player (Tears For Fears - Head Over Heels) -->
+  <!-- Element Audio -->
   <audio id="bg-music" loop preload="auto">
-    <source src="https://archive.org/download/tears-for-fears-head-over-heels_202403/Tears%20For%20Fears%20-%20Head%20Over%20Heels.mp3" type="audio/mpeg">
+    <source src="https://files.catbox.moe/6z7a4z.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Music Status Indicator -->
+  <!-- Tombol Kontrol Musik -->
   <div class="music-control" id="music-btn" onclick="toggleMusic()">
     <span class="music-icon">🎵</span>
-    <span id="music-text">Head Over Heels</span>
+    <span id="music-text">Play Music</span>
   </div>
 
   <div class="container">
@@ -278,7 +286,6 @@
 
       <p id="countdown-status" class="status-msg">⏳ Menunggu waktu spesial...</p>
 
-      <!-- Tombol ini sekarang bisa langsung diklik kapan saja -->
       <button id="btn-gift" class="btn" onclick="startApp()">✦ OPEN HER GIFT ✦</button>
     </div>
 
@@ -294,10 +301,10 @@
       <div class="sub-title">✦ OUR MEMORIES ✦</div>
       <h1 class="main-title" style="font-size: 28px;">Your Special Day</h1>
       <div class="photo-grid">
-        <div class="polaroid" style="--r: 0.2;"><img src="https://picsum.photos/300/300?random=1" alt="Memory 1"></div>
-        <div class="polaroid" style="--r: 0.8;"><img src="https://picsum.photos/300/300?random=2" alt="Memory 2"></div>
-        <div class="polaroid" style="--r: 0.4;"><img src="https://picsum.photos/300/300?random=3" alt="Memory 3"></div>
-        <div class="polaroid" style="--r: 0.6;"><img src="https://picsum.photos/300/300?random=4" alt="Memory 4"></div>
+        <div class="polaroid" style="--r: 0.2;"><img src="https://picsum.photos/300/300?random=10" alt="Memory 1"></div>
+        <div class="polaroid" style="--r: 0.8;"><img src="https://picsum.photos/300/300?random=20" alt="Memory 2"></div>
+        <div class="polaroid" style="--r: 0.4;"><img src="https://picsum.photos/300/300?random=30" alt="Memory 3"></div>
+        <div class="polaroid" style="--r: 0.6;"><img src="https://picsum.photos/300/300?random=40" alt="Memory 4"></div>
       </div>
       <button class="btn" onclick="nextSection('sec-letter')">✦ READ MY LETTER ✦</button>
     </div>
@@ -307,9 +314,9 @@
       <div class="sub-title">✦ HAPPY BIRTHDAY ✦</div>
       <div class="letter-card">
         <p><strong>HAPPY BIRTHDAY SAYANGKU! ❤️</strong></p><br>
-        <p>Selamat ulang tahun yang ke-20! Hari ini hari yang sangat spesial banget karena hari ini adalah hari lahir orang yang paling berharga di hidupku.</p><br>
-        <p>Terima kasih sudah selalu ada, sudah bikin hari-hariku lebih bahagia, dan sudah menjadi alasan aku tersenyum setiap hari. Aku bersyukur banget bisa kenal dan punya kamu sampai sekarang.</p><br>
-        <p>Semoga di usiamu yang baru ini, kamu selalu sehat, panjang umur, dipermudah segala urusannya, dan semua impianmu tercapai satu per satu. I love you today, tomorrow, and always! 💖</p>
+        <p>Selamat ulang tahun yang spesial! Hari ini adalah hari yang sangat dinantikan karena merupakan hari lahir orang yang paling berharga di hidupku.</p><br>
+        <p>Terima kasih sudah selalu ada, membuat hari-hariku lebih berwarna, dan menjadi alasan di balik senyumku. Aku sangat bersyukur memilikimu.</p><br>
+        <p>Semoga di usiamu yang baru ini, kamu selalu diberikan kesehatan, kebahagiaan yang berlimpah, dan semua impianmu tercapai satu per satu. I love you today, tomorrow, and forever! 💖</p>
       </div>
       <button class="btn" onclick="nextSection('sec-countdown')">↺ REPLAY FROM START</button>
     </div>
@@ -317,37 +324,46 @@
   </div>
 
   <script>
-    // Audio Handling
+    // Audio Control
     const audio = document.getElementById('bg-music');
     const musicBtn = document.getElementById('music-btn');
+    const musicText = document.getElementById('music-text');
 
-    function startApp() {
-      // Memutar musik saat tombol "OPEN HER GIFT" diklik
+    function playAudio() {
       audio.play().then(() => {
         musicBtn.classList.add('playing');
-      }).catch(err => console.log("Autoplay blocked:", err));
-      
-      nextSection('sec-gift');
+        musicText.innerText = 'Playing ♪';
+      }).catch(err => {
+        console.log("Autoplay dimatikan oleh browser, butuh instruksi klik:", err);
+      });
     }
 
     function toggleMusic() {
       if (audio.paused) {
         audio.play();
         musicBtn.classList.add('playing');
+        musicText.innerText = 'Playing ♪';
       } else {
         audio.pause();
         musicBtn.classList.remove('playing');
+        musicText.innerText = 'Music Paused';
       }
     }
 
-    // Countdown Timer Logic (Berjalan otomatis terus)
-    const targetDate = new Date(Date.now() + (3 * 24 * 60 * 60 * 1000) + (5 * 60 * 60 * 1000));
+    function startApp() {
+      playAudio();
+      nextSection('sec-gift');
+    }
+
+    // Countdown Logic (Hitung Mundur Real-Time Berjalan Setiap Detik)
+    // Target diatur 3 hari 12 jam dari sekarang agar terlihat langsung bergerak
+    const targetDate = new Date(new Date().getTime() + (3 * 24 * 60 * 60 * 1000) + (12 * 60 * 60 * 1000));
 
     function updateCountdown() {
       const now = new Date().getTime();
-      const distance = targetDate - now;
+      const distance = targetDate.getTime() - now;
 
-      if (distance < 0) {
+      if (distance <= 0) {
         document.getElementById("days").innerText = "00";
         document.getElementById("hours").innerText = "00";
         document.getElementById("minutes").innerText = "00";
@@ -367,16 +383,17 @@
       document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
     }
 
+    // Jalankan setiap 1 detik
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // Navigation
+    // Navigation Switcher
     function nextSection(id) {
       document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
       document.getElementById(id).classList.add('active');
     }
 
-    // Particle Background
+    // Particle Background Effect
     const canvas = document.getElementById('particles-canvas');
     const ctx = canvas.getContext('2d');
 
@@ -387,11 +404,11 @@
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    const particles = Array.from({ length: 60 }, () => ({
+    const particles = Array.from({ length: 50 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       radius: Math.random() * 2 + 1,
-      alpha: Math.random(),
+      alpha: Math.random() * 0.7 + 0.3,
       speed: Math.random() * 0.5 + 0.2
     }));
 
