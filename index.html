@@ -13,8 +13,8 @@
     }
 
     body {
-      background: #0f0c1b;
-      color: #fff;
+      background: radial-gradient(circle at center, #111e2b 0%, #070c12 100%);
+      color: #e2e8f0;
       font-family: 'Montserrat', sans-serif;
       overflow-x: hidden;
       min-height: 100vh;
@@ -60,27 +60,30 @@
       font-family: 'Cinzel', serif;
       letter-spacing: 4px;
       font-size: 14px;
-      color: #d4af37;
+      color: #38bdf8;
       text-transform: uppercase;
       margin-bottom: 15px;
+      text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
     }
 
     .main-title {
       font-family: 'Playfair Display', serif;
-      font-size: 40px;
+      font-size: 36px;
       margin-bottom: 10px;
       line-height: 1.2;
+      color: #f8fafc;
     }
 
     .main-title span {
       font-style: italic;
-      color: #f3a6b8;
+      color: #38bdf8;
+      text-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
     }
 
     .quote {
       font-size: 13px;
-      color: #b0a8ba;
-      margin-bottom: 30px;
+      color: #94a3b8;
+      margin-bottom: 25px;
     }
 
     /* Floating Music Control */
@@ -89,18 +92,24 @@
       top: 20px;
       right: 20px;
       z-index: 10;
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(15, 23, 42, 0.7);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(56, 189, 248, 0.3);
       border-radius: 30px;
       padding: 8px 18px;
       display: flex;
       align-items: center;
       gap: 10px;
       font-size: 12px;
-      color: #f3a6b8;
+      color: #38bdf8;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .music-control:hover {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: #38bdf8;
     }
 
     .music-icon {
@@ -126,25 +135,26 @@
     }
 
     .time-card {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(15, 23, 42, 0.6);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.2);
       border-radius: 12px;
       padding: 15px;
       min-width: 80px;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
     }
 
     .time-number {
       font-family: 'Cinzel', serif;
       font-size: 32px;
       font-weight: 700;
-      color: #fff;
+      color: #38bdf8;
+      text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
     }
 
     .time-label {
       font-size: 10px;
-      color: #a098aa;
+      color: #94a3b8;
       text-transform: uppercase;
       letter-spacing: 2px;
       margin-top: 5px;
@@ -152,14 +162,14 @@
 
     .status-msg {
       font-size: 14px;
-      color: #f3a6b8;
+      color: #38bdf8;
       margin-bottom: 25px;
       font-weight: 500;
     }
 
     /* Button Style */
     .btn {
-      background: linear-gradient(135deg, #d4af37, #aa820a);
+      background: linear-gradient(135deg, #0284c7, #0f766e);
       color: #fff;
       border: none;
       padding: 14px 32px;
@@ -170,12 +180,13 @@
       text-transform: uppercase;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+      box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
     }
 
     .btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.6);
+      background: linear-gradient(135deg, #0369a1, #115e59);
     }
 
     /* Gift Section */
@@ -186,6 +197,7 @@
       display: inline-block;
       animation: pulse 1.8s infinite;
       user-select: none;
+      filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.4));
     }
 
     @keyframes pulse {
@@ -199,14 +211,15 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
       gap: 15px;
-      margin: 30px 0;
+      margin: 25px 0;
     }
 
     .polaroid {
-      background: #fff;
-      padding: 10px 10px 25px 10px;
+      background: #1e293b;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      padding: 8px 8px 20px 8px;
       border-radius: 4px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
       transform: rotate(calc(-5deg + 10deg * var(--r, 0.5)));
       transition: transform 0.3s ease;
     }
@@ -214,52 +227,89 @@
     .polaroid:hover {
       transform: scale(1.08) rotate(0deg);
       z-index: 5;
+      border-color: #38bdf8;
     }
 
     .polaroid img {
       width: 100%;
-      height: 130px;
+      height: 120px;
       object-fit: cover;
       border-radius: 2px;
     }
 
+    /* Video Player Container */
+    .video-container {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 15px;
+      padding: 15px;
+      margin: 20px auto;
+      max-width: 500px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* Rasio 16:9 */
+      background: #000;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .video-wrapper video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     /* Letter Box */
     .letter-card {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(15, 23, 42, 0.7);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 30px;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 25px;
       border-radius: 15px;
       text-align: left;
       line-height: 1.8;
       font-size: 14px;
-      color: #e0d8e8;
+      color: #cbd5e1;
       margin-bottom: 25px;
-      max-height: 350px;
+      max-height: 320px;
       overflow-y: auto;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+
+    .letter-card strong {
+      color: #38bdf8;
     }
   </style>
 </head>
 <body>
 
+  <!-- Efek Partikel Kosmik -->
   <canvas id="particles-canvas"></canvas>
 
-  <!-- Element Audio (Head Over Heels) -->
+  <!-- Audio Background: Tears For Fears - Head Over Heels (Link Stabil) -->
   <audio id="bg-music" loop preload="auto">
-    <source src="https://files.catbox.moe/6z7a4z.mp3" type="audio/mpeg">
+    <source src="https://archive.org/download/tears-for-fears-head-over-heels_202403/Tears%20For%20Fears%20-%20Head%20Over%20Heels.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Tombol Musik -->
+  <!-- Tombol Kontrol Musik -->
   <div class="music-control" id="music-btn" onclick="toggleMusic()">
     <span class="music-icon">🎵</span>
-    <span id="music-text">Play Music</span>
+    <span id="music-text">Head Over Heels</span>
   </div>
 
   <div class="container">
     
     <!-- SECTION 1: COUNTDOWN -->
     <div id="sec-countdown" class="section active">
-      <div class="sub-title">✦ MENGHITUNG HARI ✦</div>
+      <div class="sub-title">✦ FATUI RESEARCH DIVISION ✦</div>
       <h1 class="main-title">Her Special Day <br><span>is Coming</span></h1>
       <p class="quote">Sesuatu yang indah sedang menunggu untukmu ♡</p>
 
@@ -282,7 +332,7 @@
         </div>
       </div>
 
-      <p id="countdown-status" class="status-msg">⏳ Menunggu waktu spesial...</p>
+      <p id="countdown-status" class="status-msg"></p>
 
       <button id="btn-gift" class="btn" onclick="startApp()">✦ OPEN HER GIFT ✦</button>
     </div>
@@ -297,24 +347,40 @@
     <!-- SECTION 3: PHOTO MEMORIES -->
     <div id="sec-photos" class="section">
       <div class="sub-title">✦ OUR MEMORIES ✦</div>
-      <h1 class="main-title" style="font-size: 28px;">Your Special Day</h1>
+      <h1 class="main-title" style="font-size: 26px;">Your Special Day</h1>
       <div class="photo-grid">
         <div class="polaroid" style="--r: 0.2;"><img src="https://picsum.photos/300/300?random=11" alt="Memory 1"></div>
         <div class="polaroid" style="--r: 0.8;"><img src="https://picsum.photos/300/300?random=22" alt="Memory 2"></div>
         <div class="polaroid" style="--r: 0.4;"><img src="https://picsum.photos/300/300?random=33" alt="Memory 3"></div>
-        <div class="polaroid" style="--r: 0.6;"><img src="https://picsum.photos/300/300?random=44" alt="Memory 4"></div>
+        <div class="polaroid" style="--r: 0.6;"><img src="foto1.jpg" alt="Memory 4"></div>
       </div>
-      <button class="btn" onclick="nextSection('sec-letter')">✦ READ MY LETTER ✦</button>
+      <button class="btn" onclick="nextSection('sec-video')">✦ WATCH VIDEO ✦</button>
     </div>
 
-    <!-- SECTION 4: LETTER / WISHES -->
+    <!-- SECTION 4: SPECIAL VIDEO MESSAGE -->
+    <div id="sec-video" class="section">
+      <div class="sub-title">✦ A MOMENT FOR YOU ✦</div>
+      <h1 class="main-title" style="font-size: 26px;">Special Video moments</h1>
+      
+      <div class="video-container">
+        <div class="video-wrapper">
+          <video controls poster="https://picsum.photos/600/350?random=99">
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            Browser Anda tidak mendukung pemutar video.
+          </video>
+        </div>
+      </div>
+
+      <button class="btn" onclick="nextSection('sec-letter')" style="margin-top: 10px;">✦ READ MY LETTER ✦</button>
+    </div>
+
+    <!-- SECTION 5: LETTER / WISHES -->
     <div id="sec-letter" class="section">
       <div class="sub-title">✦ HAPPY BIRTHDAY ✦</div>
       <div class="letter-card">
-        <p><strong>HAPPY BIRTHDAY SAYANGKU! ❤️</strong></p><br>
-        <p>Selamat ulang tahun yang ke-20! Hari ini adalah hari yang sangat spesial karena merupakan hari lahir orang yang paling berharga di hidupku.</p><br>
-        <p>Terima kasih sudah selalu ada, membuat hari-hariku lebih berwarna, dan menjadi alasan di balik senyumku. Aku sangat bersyukur memilikimu.</p><br>
-        <p>Semoga di usiamu yang baru ini, kamu selalu diberikan kesehatan, kebahagiaan yang berlimpah, dan semua impianmu tercapai satu per satu. I love you today, tomorrow, and forever! 💖</p>
+        <p><strong>HAPPY BIRTHDAY ketua sigma 🐹</strong></p><br>
+        <p>Selamat ulang tahun yang ke-18! Hari ini adalah hari yang paling berharga di hidupmu.</p><br>
+        <p>Semoga di usiamu yang baru ini, kamu selalu diberikan kesehatan, kebahagiaan yang melimpah, dan semua impianmu tercapai satu per satu. Pokoknya doa terbaik buat Ketua sigma</p>
       </div>
       <button class="btn" onclick="nextSection('sec-countdown')">↺ REPLAY FROM START</button>
     </div>
@@ -326,11 +392,10 @@
     const musicBtn = document.getElementById('music-btn');
     const musicText = document.getElementById('music-text');
 
-    // Fungsi memutar audio secara mulus saat tombol pertama diklik
     function startApp() {
       audio.play().then(() => {
         musicBtn.classList.add('playing');
-        musicText.innerText = 'Playing ♪';
+        musicText.innerText = 'Head Over Heels ♪';
       }).catch(err => {
         console.log("Audio play error:", err);
       });
@@ -341,7 +406,7 @@
       if (audio.paused) {
         audio.play();
         musicBtn.classList.add('playing');
-        musicText.innerText = 'Playing ♪';
+        musicText.innerText = 'Head Over Heels ♪';
       } else {
         audio.pause();
         musicBtn.classList.remove('playing');
@@ -349,15 +414,13 @@
       }
     }
 
-    // TARGET COUNTDOWN: Diatur ke tanggal 24 Oktober 00:00:00
-    // Pada tanggal 23 Oktober, hitung mundurnya hanya tinggal beberapa jam/menit/detik lagi!
+    // Target Countdown: 24 Oktober 2026 pukul 00:00:00
     const targetDate = new Date("October 24, 2026 00:00:00").getTime();
 
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = targetDate - now;
 
-      // Jika sudah melewati tanggal 24 Oktober 00:00:00
       if (distance <= 0) {
         document.getElementById("days").innerText = "00";
         document.getElementById("hours").innerText = "00";
@@ -413,7 +476,7 @@
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+        ctx.fillStyle = `rgba(56, 189, 248, ${p.alpha})`;
         ctx.fill();
       });
       requestAnimationFrame(animateParticles);
