@@ -44,7 +44,7 @@
 
     .section {
       display: none;
-      animation: fadeIn 1s ease forwards;
+      animation: fadeIn 0.8s ease forwards;
     }
 
     .section.active {
@@ -67,8 +67,9 @@
 
     .main-title {
       font-family: 'Playfair Display', serif;
-      font-size: 42px;
+      font-size: 40px;
       margin-bottom: 10px;
+      line-height: 1.2;
     }
 
     .main-title span {
@@ -82,7 +83,7 @@
       margin-bottom: 30px;
     }
 
-    /* Music Control Bar */
+    /* Floating Music Control */
     .music-control {
       position: fixed;
       top: 20px;
@@ -99,11 +100,7 @@
       font-size: 12px;
       color: #f3a6b8;
       cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .music-control:hover {
-      background: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
 
     .music-icon {
@@ -119,11 +116,11 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Countdown Grid */
+    /* Countdown Cards */
     .countdown-container {
       display: flex;
       justify-content: center;
-      gap: 15px;
+      gap: 12px;
       margin-bottom: 25px;
       flex-wrap: wrap;
     }
@@ -134,13 +131,13 @@
       border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 12px;
       padding: 15px;
-      min-width: 85px;
+      min-width: 80px;
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     }
 
     .time-number {
       font-family: 'Cinzel', serif;
-      font-size: 36px;
+      font-size: 32px;
       font-weight: 700;
       color: #fff;
     }
@@ -157,9 +154,10 @@
       font-size: 14px;
       color: #f3a6b8;
       margin-bottom: 25px;
+      font-weight: 500;
     }
 
-    /* Buttons */
+    /* Button Style */
     .btn {
       background: linear-gradient(135deg, #d4af37, #aa820a);
       color: #fff;
@@ -199,7 +197,7 @@
     /* Photos Grid */
     .photo-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
       gap: 15px;
       margin: 30px 0;
     }
@@ -220,7 +218,7 @@
 
     .polaroid img {
       width: 100%;
-      height: 140px;
+      height: 130px;
       object-fit: cover;
       border-radius: 2px;
     }
@@ -246,12 +244,12 @@
 
   <canvas id="particles-canvas"></canvas>
 
-  <!-- Element Audio -->
+  <!-- Element Audio (Head Over Heels) -->
   <audio id="bg-music" loop preload="auto">
     <source src="https://files.catbox.moe/6z7a4z.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Tombol Kontrol Musik -->
+  <!-- Tombol Musik -->
   <div class="music-control" id="music-btn" onclick="toggleMusic()">
     <span class="music-icon">🎵</span>
     <span id="music-text">Play Music</span>
@@ -301,10 +299,10 @@
       <div class="sub-title">✦ OUR MEMORIES ✦</div>
       <h1 class="main-title" style="font-size: 28px;">Your Special Day</h1>
       <div class="photo-grid">
-        <div class="polaroid" style="--r: 0.2;"><img src="https://picsum.photos/300/300?random=10" alt="Memory 1"></div>
-        <div class="polaroid" style="--r: 0.8;"><img src="https://picsum.photos/300/300?random=20" alt="Memory 2"></div>
-        <div class="polaroid" style="--r: 0.4;"><img src="https://picsum.photos/300/300?random=30" alt="Memory 3"></div>
-        <div class="polaroid" style="--r: 0.6;"><img src="https://picsum.photos/300/300?random=40" alt="Memory 4"></div>
+        <div class="polaroid" style="--r: 0.2;"><img src="https://picsum.photos/300/300?random=11" alt="Memory 1"></div>
+        <div class="polaroid" style="--r: 0.8;"><img src="https://picsum.photos/300/300?random=22" alt="Memory 2"></div>
+        <div class="polaroid" style="--r: 0.4;"><img src="https://picsum.photos/300/300?random=33" alt="Memory 3"></div>
+        <div class="polaroid" style="--r: 0.6;"><img src="https://picsum.photos/300/300?random=44" alt="Memory 4"></div>
       </div>
       <button class="btn" onclick="nextSection('sec-letter')">✦ READ MY LETTER ✦</button>
     </div>
@@ -314,7 +312,7 @@
       <div class="sub-title">✦ HAPPY BIRTHDAY ✦</div>
       <div class="letter-card">
         <p><strong>HAPPY BIRTHDAY SAYANGKU! ❤️</strong></p><br>
-        <p>Selamat ulang tahun yang spesial! Hari ini adalah hari yang sangat dinantikan karena merupakan hari lahir orang yang paling berharga di hidupku.</p><br>
+        <p>Selamat ulang tahun yang ke-20! Hari ini adalah hari yang sangat spesial karena merupakan hari lahir orang yang paling berharga di hidupku.</p><br>
         <p>Terima kasih sudah selalu ada, membuat hari-hariku lebih berwarna, dan menjadi alasan di balik senyumku. Aku sangat bersyukur memilikimu.</p><br>
         <p>Semoga di usiamu yang baru ini, kamu selalu diberikan kesehatan, kebahagiaan yang berlimpah, dan semua impianmu tercapai satu per satu. I love you today, tomorrow, and forever! 💖</p>
       </div>
@@ -324,18 +322,19 @@
   </div>
 
   <script>
-    // Audio Control
     const audio = document.getElementById('bg-music');
     const musicBtn = document.getElementById('music-btn');
     const musicText = document.getElementById('music-text');
 
-    function playAudio() {
+    // Fungsi memutar audio secara mulus saat tombol pertama diklik
+    function startApp() {
       audio.play().then(() => {
         musicBtn.classList.add('playing');
         musicText.innerText = 'Playing ♪';
       }).catch(err => {
-        console.log("Autoplay dimatikan oleh browser, butuh instruksi klik:", err);
+        console.log("Audio play error:", err);
       });
+      nextSection('sec-gift');
     }
 
     function toggleMusic() {
@@ -350,25 +349,21 @@
       }
     }
 
-    function startApp() {
-      playAudio();
-      nextSection('sec-gift');
-    }
-
-    // Countdown Logic (Hitung Mundur Real-Time Berjalan Setiap Detik)
-    // Target diatur 3 hari 12 jam dari sekarang agar terlihat langsung bergerak
-    const targetDate = new Date(new Date().getTime() + (3 * 24 * 60 * 60 * 1000) + (12 * 60 * 60 * 1000));
+    // TARGET COUNTDOWN: Diatur ke tanggal 24 Oktober 00:00:00
+    // Pada tanggal 23 Oktober, hitung mundurnya hanya tinggal beberapa jam/menit/detik lagi!
+    const targetDate = new Date("October 24, 2026 00:00:00").getTime();
 
     function updateCountdown() {
       const now = new Date().getTime();
-      const distance = targetDate.getTime() - now;
+      const distance = targetDate - now;
 
+      // Jika sudah melewati tanggal 24 Oktober 00:00:00
       if (distance <= 0) {
         document.getElementById("days").innerText = "00";
         document.getElementById("hours").innerText = "00";
         document.getElementById("minutes").innerText = "00";
         document.getElementById("seconds").innerText = "00";
-        document.getElementById("countdown-status").innerText = "🎉 Hari ini adalah hari spesialmu! 🎉";
+        document.getElementById("countdown-status").innerText = "🎉 HARI INI ADALAH HARI SPESIALMU! 🎉";
         return;
       }
 
@@ -383,17 +378,15 @@
       document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
     }
 
-    // Jalankan setiap 1 detik
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // Navigation Switcher
     function nextSection(id) {
       document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
       document.getElementById(id).classList.add('active');
     }
 
-    // Particle Background Effect
+    // Particle Background
     const canvas = document.getElementById('particles-canvas');
     const ctx = canvas.getContext('2d');
 
