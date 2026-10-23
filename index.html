@@ -3,511 +3,410 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dottore Birthday Gift - GameBoy Edition</title>
+  <title>Her Special Day Is Coming</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg-color: #0b132b;
-      --gameboy-body: #1c2541;
-      --gameboy-border: #3a506b;
-      --accent-cyan: #00f5d4;
-      --accent-blue: #00b4d8;
-      --dark-blue: #03045e;
-      --screen-bg: #e0f7fa;
-      --screen-text: #0d1b2a;
-      --pink-neon: #7209b7;
-    }
-
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Courier New', Courier, monospace;
+      box-sizing: border-box;
     }
 
     body {
-      background-color: var(--bg-color);
+      background: #0f0c1b;
       color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
       min-height: 100vh;
-      padding: 10px;
-    }
-
-    /* Gameboy Frame Container */
-    .gameboy-container {
-      background: var(--gameboy-body);
-      border: 4px solid var(--gameboy-border);
-      border-radius: 20px;
-      width: 100%;
-      max-width: 380px;
-      padding: 20px;
-      box-shadow: 0 0 20px rgba(0, 245, 212, 0.3);
-      position: relative;
-    }
-
-    .top-header {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      font-size: 12px;
-      font-weight: bold;
-      color: var(--accent-cyan);
-    }
-
-    .power-led {
-      width: 10px;
-      height: 10px;
-      background-color: #00ff66;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #00ff66;
-      display: inline-block;
-      margin-right: 5px;
-    }
-
-    /* Screen Area */
-    .screen {
-      background-color: var(--screen-bg);
-      color: var(--screen-text);
-      border: 3px solid var(--dark-blue);
-      border-radius: 10px;
-      min-height: 380px;
-      padding: 15px;
-      display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
     }
 
-    /* View Sections */
-    .view-section {
-      display: none;
+    #particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      z-index: 1;
+      pointer-events: none;
     }
 
-    .view-section.active {
-      display: flex;
-    }
-
-    /* Progress Bar */
-    .progress-box {
-      width: 80%;
-      background: #ccc;
-      border-radius: 10px;
-      overflow: hidden;
-      margin: 15px 0;
-      border: 2px solid var(--dark-blue);
-    }
-
-    .progress-bar {
-      height: 15px;
-      width: 0%;
-      background: var(--accent-blue);
-      transition: width 0.3s;
-    }
-
-    /* Menu Buttons in Gameboy */
-    .menu-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      width: 100%;
-      margin-top: 15px;
-    }
-
-    .btn-menu {
-      background: var(--accent-blue);
-      color: white;
-      border: none;
-      padding: 10px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 4px #0077b6;
-      transition: all 0.1s;
-    }
-
-    .btn-menu:active {
-      box-shadow: 0 0 #0077b6;
-      transform: translateY(4px);
-    }
-
-    /* Controls Area */
-    .controls {
-      margin-top: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .d-pad {
-      width: 80px;
-      height: 80px;
+    .container {
       position: relative;
-      background: var(--dark-blue);
-      border-radius: 10px;
-    }
-
-    .d-btn {
-      position: absolute;
-      background: #00b4d8;
-      border: none;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .d-up { top: 0; left: 28px; width: 24px; height: 28px; }
-    .d-down { bottom: 0; left: 28px; width: 24px; height: 28px; }
-    .d-left { top: 28px; left: 0; width: 28px; height: 24px; }
-    .d-right { top: 28px; right: 0; width: 28px; height: 24px; }
-
-    .ab-buttons {
-      display: flex;
-      gap: 10px;
-    }
-
-    .btn-round {
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      background: #e63946;
-      color: white;
-      border: none;
-      font-weight: bold;
-      box-shadow: 0 3px #9bf6ff;
-      cursor: pointer;
-    }
-
-    .nav-bottom {
-      display: flex;
-      justify-content: space-between;
+      z-index: 2;
       width: 100%;
-      margin-top: 10px;
-    }
-
-    .btn-nav {
-      background: var(--dark-blue);
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 5px;
-      font-size: 11px;
-      cursor: pointer;
-    }
-
-    /* Tetris Canvas */
-    #tetrisCanvas {
-      background: #000;
-      border: 2px solid var(--dark-blue);
-    }
-
-    /* Photobox Gallery Styling */
-    .photo-frame {
-      width: 100%;
-      max-height: 200px;
-      overflow-y: auto;
-      background: white;
-      border: 2px dashed var(--accent-blue);
-      padding: 8px;
-      border-radius: 8px;
-      margin-bottom: 10px;
-    }
-
-    .photo-item {
-      background: #f0f8ff;
-      padding: 5px;
-      margin-bottom: 8px;
-      border-radius: 5px;
-      border: 1px solid #bde0fe;
-    }
-
-    .photo-item img {
-      width: 100%;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 4px;
-    }
-
-    /* Popup Modal */
-    .modal {
-      display: none;
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      justify-content: center;
-      align-items: center;
-      z-index: 10;
-    }
-
-    .modal-content {
-      background: white;
-      color: black;
-      padding: 15px;
-      border-radius: 10px;
-      max-width: 80%;
+      max-width: 800px;
+      padding: 20px;
       text-align: center;
     }
 
-    .modal-btn {
-      background: var(--accent-blue);
-      color: white;
-      border: none;
-      padding: 5px 15px;
-      margin-top: 10px;
-      border-radius: 5px;
+    .section {
+      display: none;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .sub-title {
+      font-family: 'Cinzel', serif;
+      letter-spacing: 4px;
+      font-size: 14px;
+      color: #d4af37;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
+
+    .main-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .main-title span {
+      font-style: italic;
+      color: #f3a6b8;
+    }
+
+    .quote {
+      font-size: 13px;
+      color: #b0a8ba;
+      margin-bottom: 40px;
+    }
+
+    /* Music Player Pill */
+    .music-control {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 30px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: #f3a6b8;
       cursor: pointer;
+    }
+
+    .music-icon {
+      font-size: 16px;
+      animation: spin 4s linear infinite;
+      animation-play-state: paused;
+    }
+
+    .music-control.playing .music-icon {
+      animation-play-state: running;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Countdown Grid */
+    .countdown-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .time-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 15px;
+      min-width: 85px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    .time-number {
+      font-family: 'Cinzel', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .time-label {
+      font-size: 10px;
+      color: #a098aa;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 5px;
+    }
+
+    .status-msg {
+      font-size: 14px;
+      color: #f3a6b8;
+      margin-bottom: 25px;
+    }
+
+    /* Buttons */
+    .btn {
+      background: linear-gradient(135deg, #d4af37, #aa820a);
+      color: #fff;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+    }
+
+    /* Gift Section */
+    .gift-box {
+      font-size: 80px;
+      margin: 30px 0;
+      cursor: pointer;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    /* Photos Grid */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin: 30px 0;
+    }
+
+    .polaroid {
+      background: #fff;
+      padding: 10px 10px 25px 10px;
+      border-radius: 4px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      transform: rotate(calc(-5deg + 10deg * var(--r, 0.5)));
+      transition: transform 0.3s ease;
+    }
+
+    .polaroid:hover {
+      transform: scale(1.05) rotate(0deg);
+      z-index: 5;
+    }
+
+    .polaroid img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 2px;
+    }
+
+    /* Letter Box */
+    .letter-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      text-align: left;
+      line-height: 1.8;
+      font-size: 14px;
+      color: #e0d8e8;
+      margin-bottom: 25px;
+      max-height: 350px;
+      overflow-y: auto;
     }
   </style>
 </head>
 <body>
 
-  <div class="gameboy-container">
-    <div class="top-header">
-      <div><span class="power-led"></span>POWER</div>
-      <div>GAME-BOY [DOTTORE VER]</div>
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Audio Player (Tears For Fears - Head Over Heels) -->
+  <audio id="bg-music" loop preload="auto">
+    <source src="https://archive.org/download/tears-for-fears-head-over-heels_202403/Tears%20For%20Fears%20-%20Head%20Over%20Heels.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Music Status Indicator -->
+  <div class="music-control" id="music-btn" onclick="toggleMusic()">
+    <span class="music-icon">🎵</span>
+    <span id="music-text">Head Over Heels</span>
+  </div>
+
+  <div class="container">
+    
+    <!-- SECTION 1: COUNTDOWN -->
+    <div id="sec-countdown" class="section active">
+      <div class="sub-title">✦ MENGHITUNG HARI ✦</div>
+      <h1 class="main-title">Her Special Day <br><span>is Coming</span></h1>
+      <p class="quote">Sesuatu yang indah sedang menunggu untukmu ♡</p>
+
+      <div class="countdown-container">
+        <div class="time-card">
+          <div id="days" class="time-number">00</div>
+          <div class="time-label">HARI</div>
+        </div>
+        <div class="time-card">
+          <div id="hours" class="time-number">00</div>
+          <div class="time-label">JAM</div>
+        </div>
+        <div class="time-card">
+          <div id="minutes" class="time-number">00</div>
+          <div class="time-label">MENIT</div>
+        </div>
+        <div class="time-card">
+          <div id="seconds" class="time-number">00</div>
+          <div class="time-label">DETIK</div>
+        </div>
+      </div>
+
+      <p id="countdown-status" class="status-msg">⏳ Menunggu waktu spesial...</p>
+
+      <button id="btn-gift" class="btn" onclick="startApp()">✦ OPEN HER GIFT ✦</button>
     </div>
 
-    <!-- SCREEN AREA -->
-    <div class="screen">
-
-      <!-- 1. LOADING VIEW -->
-      <div id="loadingView" class="view-section active">
-        <h3>BIRTHDAY GIFT</h3>
-        <p style="font-size: 12px; color: var(--dark-blue); margin-top: 10px;">> PREPARING EXPERIMENT...</p>
-        <div class="progress-box">
-          <div id="progressBar" class="progress-bar"></div>
-        </div>
-        <p id="progressText" style="font-size: 12px;">0%</p>
-      </div>
-
-      <!-- 2. HOME MENU VIEW -->
-      <div id="homeView" class="view-section">
-        <h2 style="color: var(--dark-blue);">Happy Birthday!</h2>
-        <p style="font-size: 12px; margin-bottom: 10px;">The Doctor's Special Gift</p>
-        <img src="https://via.placeholder.com/120x80/00b4d8/ffffff?text=Dottore+Theme" alt="Dottore" style="border-radius: 8px; margin-bottom: 10px;">
-        <p style="font-size: 10px;">Press Start Button</p>
-
-        <div class="menu-grid">
-          <button class="btn-menu" onclick="switchView('messageView')">MESSAGE</button>
-          <button class="btn-menu" onclick="switchView('galleryView')">GALLERY</button>
-          <button class="btn-menu" onclick="switchView('musicView')">MUSIC</button>
-          <button class="btn-menu" onclick="switchView('tetrisView')">TETRIS</button>
-        </div>
-      </div>
-
-      <!-- 3. MESSAGE VIEW -->
-      <div id="messageView" class="view-section">
-        <h4 style="margin-bottom: 8px;">Message</h4>
-        <div style="background: #fff; padding: 10px; border-radius: 8px; font-size: 11px; text-align: left; height: 200px; overflow-y: auto; border: 1px solid var(--accent-blue);">
-          <p id="messageContent">Hi Friend,<br><br>Selamat ulang tahun! Semoga di usia yang baru ini semua eksperimen kehidupanmu berjalan sukses. Dottore selalu mengawasimu dari Illytchevsk! Tetap semangat dan bahagia selalu!</p>
-        </div>
-      </div>
-
-      <!-- 4. GALLERY / PHOTOBOX VIEW -->
-      <div id="galleryView" class="view-section">
-        <h4>Photobox Session</h4>
-        <p style="font-size: 10px; margin-bottom: 5px;" id="photoStatus">READY TO PRINT</p>
-        <div class="photo-frame" id="photoFrame">
-          <!-- Item foto akan tercetak di sini -->
-        </div>
-        <button class="btn-menu" style="font-size: 11px; padding: 5px;" onclick="startPhotobox()">MULAI CETAK</button>
-      </div>
-
-      <!-- 5. MUSIC PLAYER VIEW -->
-      <div id="musicView" class="view-section">
-        <h4>Dottore Music Box</h4>
-        <div style="background: white; width: 100%; border-radius: 8px; padding: 10px; margin-top: 10px;">
-          <p style="font-size: 11px; font-weight: bold;" id="songTitle">🎵 Segment Theme - Zandik</p>
-          <div style="margin: 10px 0;">
-            <button class="btn-menu" style="padding: 4px 8px;" onclick="changeTrack(1)">Playlist 1</button>
-            <button class="btn-menu" style="padding: 4px 8px;" onclick="changeTrack(2)">Playlist 2</button>
-          </div>
-          <p style="font-size: 9px; color: #555;" id="songDesc">Lagu spesial tema ulang tahun Dottore.</p>
-        </div>
-      </div>
-
-      <!-- 6. TETRIS VIEW -->
-      <div id="tetrisView" class="view-section">
-        <canvas id="tetrisCanvas" width="160" height="200"></canvas>
-      </div>
-
-      <!-- MODAL GAME OVER / POPUP -->
-      <div id="customModal" class="modal">
-        <div class="modal-content">
-          <h3 id="modalTitle">GAME OVER</h3>
-          <p id="modalMsg" style="font-size: 11px; margin: 10px 0;">Walaupun kamu kalah, kamu tetap pemenang di hatiku! I LOVE YOU &lt;3</p>
-          <button class="modal-btn" onclick="closeModal()">OK</button>
-        </div>
-      </div>
-
+    <!-- SECTION 2: GIFT UNBOXING -->
+    <div id="sec-gift" class="section">
+      <div class="sub-title">✦ ADA SESUATU UNTUKMU ✦</div>
+      <div class="gift-box" onclick="nextSection('sec-photos')">🎁</div>
+      <p class="quote">Klik hadiah di atas untuk membukanya ✨</p>
     </div>
 
-    <!-- CONTROLS & NAV BOTTOM -->
-    <div class="controls">
-      <div class="d-pad">
-        <button class="d-btn d-up" onclick="moveTetris('up')">▲</button>
-        <button class="d-btn d-down" onclick="moveTetris('down')">▼</button>
-        <button class="d-btn d-left" onclick="moveTetris('left')">◄</button>
-        <button class="d-btn d-right" onclick="moveTetris('right')">►</button>
+    <!-- SECTION 3: PHOTO MEMORIES -->
+    <div id="sec-photos" class="section">
+      <div class="sub-title">✦ OUR MEMORIES ✦</div>
+      <h1 class="main-title" style="font-size: 28px;">Your Special Day</h1>
+      <div class="photo-grid">
+        <div class="polaroid" style="--r: 0.2;"><img src="https://picsum.photos/300/300?random=1" alt="Memory 1"></div>
+        <div class="polaroid" style="--r: 0.8;"><img src="https://picsum.photos/300/300?random=2" alt="Memory 2"></div>
+        <div class="polaroid" style="--r: 0.4;"><img src="https://picsum.photos/300/300?random=3" alt="Memory 3"></div>
+        <div class="polaroid" style="--r: 0.6;"><img src="https://picsum.photos/300/300?random=4" alt="Memory 4"></div>
       </div>
-      <div class="ab-buttons">
-        <button class="btn-round" onclick="btnAction('B')">B</button>
-        <button class="btn-round" onclick="btnAction('A')">A</button>
-      </div>
+      <button class="btn" onclick="nextSection('sec-letter')">✦ READ MY LETTER ✦</button>
     </div>
 
-    <div class="nav-bottom">
-      <button class="btn-nav" onclick="switchView('homeView')">KEMBALI</button>
-      <button class="btn-nav" onclick="switchView('homeView')">START</button>
+    <!-- SECTION 4: LETTER / WISHES -->
+    <div id="sec-letter" class="section">
+      <div class="sub-title">✦ HAPPY BIRTHDAY ✦</div>
+      <div class="letter-card">
+        <p><strong>HAPPY BIRTHDAY SAYANGKU! ❤️</strong></p><br>
+        <p>Selamat ulang tahun yang ke-20! Hari ini hari yang sangat spesial banget karena hari ini adalah hari lahir orang yang paling berharga di hidupku.</p><br>
+        <p>Terima kasih sudah selalu ada, sudah bikin hari-hariku lebih bahagia, dan sudah menjadi alasan aku tersenyum setiap hari. Aku bersyukur banget bisa kenal dan punya kamu sampai sekarang.</p><br>
+        <p>Semoga di usiamu yang baru ini, kamu selalu sehat, panjang umur, dipermudah segala urusannya, dan semua impianmu tercapai satu per satu. I love you today, tomorrow, and always! 💖</p>
+      </div>
+      <button class="btn" onclick="nextSection('sec-countdown')">↺ REPLAY FROM START</button>
     </div>
+
   </div>
 
   <script>
-    // --- LOADING ANIMATION ---
-    let progress = 0;
-    const progressBar = document.getElementById('progressBar');
-    const progressText = document.getElementById('progressText');
+    // Audio Handling
+    const audio = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-btn');
 
-    const loadingInterval = setInterval(() => {
-      progress += 5;
-      progressBar.style.width = progress + '%';
-      progressText.innerText = progress + '%';
-      if (progress >= 100) {
-        clearInterval(loadingInterval);
-        setTimeout(() => {
-          switchView('homeView');
-        }, 500);
-      }
-    }, 100);
-
-    // --- VIEW SWITCHER ---
-    function switchView(viewId) {
-      document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-      document.getElementById(viewId).classList.add('active');
-
-      if (viewId === 'tetrisView') {
-        startTetris();
-      } else {
-        stopTetris();
-      }
-    }
-
-    // --- PHOTOBOX SIMULATION ---
-    const photos = [
-      { text: "My Best Friend 💙", img: "https://via.placeholder.com/150/00b4d8/ffffff?text=Photo+1" },
-      { text: "Dottore Segment 🤖", img: "https://via.placeholder.com/150/0077b6/ffffff?text=Photo+2" },
-      { text: "Happy Birthday! 🎉", img: "https://via.placeholder.com/150/03045e/ffffff?text=Photo+3" }
-    ];
-
-    function startPhotobox() {
-      const frame = document.getElementById('photoFrame');
-      const status = document.getElementById('photoStatus');
-      frame.innerHTML = '';
-      status.innerText = 'PRINTING...';
-
-      photos.forEach((p, index) => {
-        setTimeout(() => {
-          const item = document.createElement('div');
-          item.className = 'photo-item';
-          item.innerHTML = `<img src="${p.img}"><p style="font-size:10px; margin-top:2px;">${p.text}</p>`;
-          frame.appendChild(item);
-          frame.scrollTop = frame.scrollHeight;
-
-          if (index === photos.length - 1) {
-            status.innerText = 'PHOTO STRIP COMPLETED!';
-          }
-        }, (index + 1) * 1200);
-      });
-    }
-
-    // --- MUSIC PLAYER ---
-    function changeTrack(trackNum) {
-      const title = document.getElementById('songTitle');
-      const desc = document.getElementById('songDesc');
-      if (trackNum === 1) {
-        title.innerText = "🎵 Segment Theme - Zandik";
-        desc.innerText = "Lagu spesial tema ulang tahun Dottore.";
-      } else {
-        title.innerText = "🎵 Winter Night's Lazzo - Fatui";
-        desc.innerText = "Koleksi musik favorit bertema Genshin Impact.";
-      }
-    }
-
-    // --- MINI TETRIS GAME ---
-    const canvas = document.getElementById('tetrisCanvas');
-    const ctx = canvas.getContext('2d');
-    let tetrisInterval = null;
-
-    const grid = 16;
-    let piece = { x: 64, y: 0, shape: [[1,1,1],[0,1,0]] };
-
-    function drawTetris() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#00f5d4';
+    function startApp() {
+      audio.play().then(() => {
+        musicBtn.classList.add('playing');
+      }).catch(err => console.log("Autoplay blocked:", err));
       
-      piece.shape.forEach((row, rIdx) => {
-        row.forEach((val, cIdx) => {
-          if (val) {
-            ctx.fillRect(piece.x + cIdx * grid, piece.y + rIdx * grid, grid - 1, grid - 1);
-          }
-        });
-      });
-
-      piece.y += 2;
-      if (piece.y > canvas.height - 32) {
-        stopTetris();
-        showModal("INGET YA!", "Walaupun kamu kalah, kamu tetap selalu menang di hati aku! I LOVE YOU <3");
-      }
+      nextSection('sec-gift');
     }
 
-    function startTetris() {
-      piece.y = 0;
-      if (!tetrisInterval) {
-        tetrisInterval = setInterval(drawTetris, 100);
-      }
-    }
-
-    function stopTetris() {
-      if (tetrisInterval) {
-        clearInterval(tetrisInterval);
-        tetrisInterval = null;
-      }
-    }
-
-    function moveTetris(dir) {
-      if (dir === 'left') piece.x -= grid;
-      if (dir === 'right') piece.x += grid;
-      if (dir === 'down') piece.y += grid;
-    }
-
-    // --- MODAL FUNCTIONS ---
-    function showModal(title, msg) {
-      document.getElementById('modalTitle').innerText = title;
-      document.getElementById('modalMsg').innerText = msg;
-      document.getElementById('customModal').style.display = 'flex';
-    }
-
-    function closeModal() {
-      document.getElementById('customModal').style.display = 'none';
-      switchView('homeView');
-    }
-
-    function btnAction(btn) {
-      if (btn === 'A') {
-        showModal("BUTTON A", "Fitur eksperimen disetujui oleh Dottore!");
+    function toggleMusic() {
+      if (audio.paused) {
+        audio.play();
+        musicBtn.classList.add('playing');
       } else {
-        switchView('homeView');
+        audio.pause();
+        musicBtn.classList.remove('playing');
       }
     }
+
+    // Countdown Timer Logic
+    const targetDate = new Date(Date.now() + (3 * 24 * 60 * 60 * 1000) + (5 * 60 * 60 * 1000));
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        document.getElementById("days").innerText = "00";
+        document.getElementById("hours").innerText = "00";
+        document.getElementById("minutes").innerText = "00";
+        document.getElementById("seconds").innerText = "00";
+        document.getElementById("countdown-status").innerText = "🎉 Hari ini adalah hari spesialmu! 🎉";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+      document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+      document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+      document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Navigation
+    function nextSection(id) {
+      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    // Particle Background
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const particles = Array.from({ length: 60 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 2 + 1,
+      alpha: Math.random(),
+      speed: Math.random() * 0.5 + 0.2
+    }));
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.y -= p.speed;
+        if (p.y < 0) p.y = canvas.height;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
   </script>
 </body>
-    </html
+</html>
