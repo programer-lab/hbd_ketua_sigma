@@ -278,6 +278,7 @@
 
       <p id="countdown-status" class="status-msg">⏳ Menunggu waktu spesial...</p>
 
+      <!-- Tombol ini sekarang bisa langsung diklik kapan saja -->
       <button id="btn-gift" class="btn" onclick="startApp()">✦ OPEN HER GIFT ✦</button>
     </div>
 
@@ -321,6 +322,7 @@
     const musicBtn = document.getElementById('music-btn');
 
     function startApp() {
+      // Memutar musik saat tombol "OPEN HER GIFT" diklik
       audio.play().then(() => {
         musicBtn.classList.add('playing');
       }).catch(err => console.log("Autoplay blocked:", err));
@@ -338,7 +340,7 @@
       }
     }
 
-    // Countdown Timer Logic
+    // Countdown Timer Logic (Berjalan otomatis terus)
     const targetDate = new Date(Date.now() + (3 * 24 * 60 * 60 * 1000) + (5 * 60 * 60 * 1000));
 
     function updateCountdown() {
