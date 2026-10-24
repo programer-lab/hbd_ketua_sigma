@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Her Special Day Is Coming</title>
+  <title>Happy Birthday Ketua Sigma</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>
     * {
@@ -86,43 +86,76 @@
       margin-bottom: 25px;
     }
 
-    /* Floating Music Control */
-    .music-control {
+    /* Spotify Style Music Player Widget */
+    .spotify-player {
       position: fixed;
       top: 20px;
       right: 20px;
       z-index: 10;
-      background: rgba(15, 23, 42, 0.7);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      border-radius: 30px;
-      padding: 8px 18px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      border-radius: 12px;
+      padding: 10px 15px;
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 12px;
-      color: #38bdf8;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-      transition: all 0.3s ease;
+      gap: 12px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+      max-width: 240px;
     }
 
-    .music-control:hover {
-      background: rgba(30, 41, 59, 0.9);
-      border-color: #38bdf8;
+    .spotify-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      background: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      animation: spin 4s linear infinite;
+      animation-play-state: paused;
     }
 
-    .music-icon {
-      font-size: 16px;
-      display: inline-block;
-    }
-
-    .music-control.playing .music-icon {
-      animation: spin 3s linear infinite;
+    .spotify-player.playing .spotify-img {
+      animation-play-state: running;
     }
 
     @keyframes spin {
       100% { transform: rotate(360deg); }
+    }
+
+    .spotify-info {
+      text-align: left;
+      overflow: hidden;
+      flex-grow: 1;
+    }
+
+    .spotify-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: #f8fafc;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .spotify-artist {
+      font-size: 10px;
+      color: #38bdf8;
+    }
+
+    .spotify-btn {
+      background: none;
+      border: none;
+      color: #38bdf8;
+      font-size: 18px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .spotify-btn:hover {
+      transform: scale(1.1);
     }
 
     /* Countdown Cards */
@@ -252,7 +285,7 @@
     .video-wrapper {
       position: relative;
       width: 100%;
-      padding-top: 56.25%; /* Rasio 16:9 */
+      padding-top: 56.25%;
       background: #000;
       border-radius: 10px;
       overflow: hidden;
@@ -294,15 +327,19 @@
   <!-- Efek Partikel Kosmik -->
   <canvas id="particles-canvas"></canvas>
 
-  <!-- Audio Background: Tears For Fears - Head Over Heels (Link Stabil) -->
+  <!-- Audio Background (Head Over Heels - Tears For Fears) -->
   <audio id="bg-music" loop preload="auto">
-    <source src="https://archive.org/download/tears-for-fears-head-over-heels_202403/Tears%20For%20Fears%20-%20Head%20Over%20Heels.mp3" type="audio/mpeg">
+    <source src="head over heels.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Tombol Kontrol Musik -->
-  <div class="music-control" id="music-btn" onclick="toggleMusic()">
-    <span class="music-icon">🎵</span>
-    <span id="music-text">Head Over Heels</span>
+  <!-- Pemutar Musik Bergaya Spotify di Pojok Kanan Atas -->
+  <div class="spotify-player" id="spotify-widget">
+    <div class="spotify-img">💿</div>
+    <div class="spotify-info">
+      <div class="spotify-title">Head Over Heels</div>
+      <div class="spotify-artist">Tears For Fears</div>
+    </div>
+    <button class="spotify-btn" id="play-pause-btn" onclick="toggleMusic()">▶</button>
   </div>
 
   <div class="container">
@@ -310,8 +347,8 @@
     <!-- SECTION 1: COUNTDOWN -->
     <div id="sec-countdown" class="section active">
       <div class="sub-title">✦ FATUI RESEARCH DIVISION ✦</div>
-      <h1 class="main-title">Her Special Day <br><span>is Coming</span></h1>
-      <p class="quote">Sesuatu yang indah sedang menunggu untukmu ♡</p>
+      <h1 class="main-title">HAPPY BIRTHDAY<br><span>Ketua Sigma</span></h1>
+      <p class="quote">Sesuatu yang spesial sedang disiapkan untukmu ♡</p>
 
       <div class="countdown-container">
         <div class="time-card">
@@ -347,12 +384,12 @@
     <!-- SECTION 3: PHOTO MEMORIES -->
     <div id="sec-photos" class="section">
       <div class="sub-title">✦ OUR MEMORIES ✦</div>
-      <h1 class="main-title" style="font-size: 26px;">Your Special Day</h1>
+      <h1 class="main-title" style="font-size: 26px;">Ketua Sigma Memories</h1>
       <div class="photo-grid">
-        <div class="polaroid" style="--r: 0.2;"><img src="https://picsum.photos/300/300?random=11" alt="Memory 1"></div>
-        <div class="polaroid" style="--r: 0.8;"><img src="https://picsum.photos/300/300?random=22" alt="Memory 2"></div>
-        <div class="polaroid" style="--r: 0.4;"><img src="https://picsum.photos/300/300?random=33" alt="Memory 3"></div>
-        <div class="polaroid" style="--r: 0.6;"><img src="foto1.jpg" alt="Memory 4"></div>
+        <div class="polaroid" style="--r: 0.2;"><img src="foto2.jpg" alt="Memory 1"></div>
+        <div class="polaroid" style="--r: 0.8;"><img src="foto1.jpg" alt="Memory 2"></div>
+        <div class="polaroid" style="--r: 0.4;"><img src="foto3.jpg" alt="Memory 3"></div>
+        <div class="polaroid" style="--r: 0.6;"><img src="foto4.jpg" alt="Memory 4"></div>
       </div>
       <button class="btn" onclick="nextSection('sec-video')">✦ WATCH VIDEO ✦</button>
     </div>
@@ -360,12 +397,12 @@
     <!-- SECTION 4: SPECIAL VIDEO MESSAGE -->
     <div id="sec-video" class="section">
       <div class="sub-title">✦ A MOMENT FOR YOU ✦</div>
-      <h1 class="main-title" style="font-size: 26px;">Special Video moments</h1>
+      <h1 class="main-title" style="font-size: 26px;">Special Video Moments</h1>
       
       <div class="video-container">
         <div class="video-wrapper">
-          <video controls poster="https://picsum.photos/600/350?random=99">
-            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+          <video id="my-video" controls poster="https://picsum.photos/600/350?random=99">
+            <source src="moments.mp4" type="video/mp4">
             Browser Anda tidak mendukung pemutar video.
           </video>
         </div>
@@ -378,9 +415,9 @@
     <div id="sec-letter" class="section">
       <div class="sub-title">✦ HAPPY BIRTHDAY ✦</div>
       <div class="letter-card">
-        <p><strong>HAPPY BIRTHDAY ketua sigma 🐹</strong></p><br>
-        <p>Selamat ulang tahun yang ke-18! Hari ini adalah hari yang paling berharga di hidupmu.</p><br>
-        <p>Semoga di usiamu yang baru ini, kamu selalu diberikan kesehatan, kebahagiaan yang melimpah, dan semua impianmu tercapai satu per satu. Pokoknya doa terbaik buat Ketua sigma</p>
+        <p><strong>HAPPY BIRTHDAY KETUA SIGMA 🐹</strong></p><br>
+        <p>Selamat ulang tahun yang ke-18! Hari ini adalah hari yang sangat berharga di hidupmu.</p><br>
+        <p>Semoga di usiamu yang baru ini, kamu selalu diberikan kesehatan, kebahagiaan yang melimpah, dan semua impianmu tercapai satu per satu. Pokoknya doa terbaik buat Ketua Sigma!</p>
       </div>
       <button class="btn" onclick="nextSection('sec-countdown')">↺ REPLAY FROM START</button>
     </div>
@@ -389,13 +426,14 @@
 
   <script>
     const audio = document.getElementById('bg-music');
-    const musicBtn = document.getElementById('music-btn');
-    const musicText = document.getElementById('music-text');
+    const spotifyWidget = document.getElementById('spotify-widget');
+    const playPauseBtn = document.getElementById('play-pause-btn');
+    const videoElement = document.getElementById('my-video');
 
     function startApp() {
       audio.play().then(() => {
-        musicBtn.classList.add('playing');
-        musicText.innerText = 'Head Over Heels ♪';
+        spotifyWidget.classList.add('playing');
+        playPauseBtn.innerText = '⏸';
       }).catch(err => {
         console.log("Audio play error:", err);
       });
@@ -405,12 +443,30 @@
     function toggleMusic() {
       if (audio.paused) {
         audio.play();
-        musicBtn.classList.add('playing');
-        musicText.innerText = 'Head Over Heels ♪';
+        spotifyWidget.classList.add('playing');
+        playPauseBtn.innerText = '⏸';
       } else {
         audio.pause();
-        musicBtn.classList.remove('playing');
-        musicText.innerText = 'Music Paused';
+        spotifyWidget.classList.remove('playing');
+        playPauseBtn.innerText = '▶';
+      }
+    }
+
+    // Fungsi otomatis mematikan musik saat masuk ke halaman video moment
+    function nextSection(id) {
+      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+
+      if (id === 'sec-video') {
+        if (!audio.paused) {
+          audio.pause();
+          spotifyWidget.classList.remove('playing');
+          playPauseBtn.innerText = '▶';
+        }
+      } else {
+        if (videoElement) {
+          videoElement.pause();
+        }
       }
     }
 
@@ -426,7 +482,7 @@
         document.getElementById("hours").innerText = "00";
         document.getElementById("minutes").innerText = "00";
         document.getElementById("seconds").innerText = "00";
-        document.getElementById("countdown-status").innerText = "🎉 HARI INI ADALAH HARI SPESIALMU! 🎉";
+        document.getElementById("countdown-status").innerText = "🎉 HARI INI ADALAH HARI SPESIAL KETUA SIGMA! 🎉";
         return;
       }
 
@@ -443,11 +499,6 @@
 
     setInterval(updateCountdown, 1000);
     updateCountdown();
-
-    function nextSection(id) {
-      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
 
     // Particle Background
     const canvas = document.getElementById('particles-canvas');
